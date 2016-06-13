@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get 'post_images/upload'
+
   resources :campaigns
+  post 'post_images/upload' => 'post_images#upload'
 
   root 'campaigns#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613132311) do
+ActiveRecord::Schema.define(version: 20160613162521) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "title",       null: false
     t.text     "description", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "post_images", force: :cascade do |t|
+    t.string   "image_secure_token"
+    t.string   "original_filename"
+    t.string   "image"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
 end
