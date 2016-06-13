@@ -5,7 +5,9 @@ ready = ->
     imageUploadParam: 'file',
     imageUploadParams: {
 	    authenticity_token: AUTH_TOKEN
-    }
+    },
+    imageManagerLoadURL: '/post_images',
+    imageManagerLoadMethod: 'GET'
   })
 
 $(document).ready(ready)
