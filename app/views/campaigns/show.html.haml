@@ -2,7 +2,7 @@
 
 %h1= @campaign.title
 
-%p= @campaign.description
+%p= @campaign.description.html_safe
 
 = link_to 'Edit', edit_campaign_path(@campaign)
 \|

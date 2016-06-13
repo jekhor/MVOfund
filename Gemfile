@@ -51,4 +51,6 @@ gem 'haml-rails', '~> 0.9'
 gem 'responders'
 gem 'simple_form'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-
+gem 'wysiwyg-rails'
+gem 'font-awesome-sass'
+gem 'jquery-turbolinks'

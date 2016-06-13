@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :title
-    = f.input :description
+    = f.input :description, input_html: { class: 'wysiwyg' }
 
   .form-actions
     = f.button :submit

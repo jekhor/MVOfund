@@ -11,7 +11,28 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require froala_editor.min.js
+//= require plugins/code_view.min.js
+//= require plugins/code_beautifier.min.js
+//= require plugins/colors.min.js
+//= require plugins/font_size.min.js
+//= require plugins/image.min.js
+//= require plugins/image_manager.min.js
+//= require plugins/line_breaker.min.js
+//= require plugins/link.min.js
+//= require plugins/lists.min.js
+//= require plugins/paragraph_format.min.js
+//= require plugins/paragraph_style.min.js
+//= require plugins/quick_insert.min.js
+//= require plugins/quote.min.js
+//= require plugins/table.min.js
+//= require plugins/url.min.js
+//
+//= require languages/ru.js
+//
+//
 //= require_tree .
