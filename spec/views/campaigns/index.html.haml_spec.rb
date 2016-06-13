@@ -1,10 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "campaigns/index", type: :view do
-  before(:each) do
+   let(:valid_attributes) {
+     [
+    {
+      title: "First Campaign",
+      description: "Campaign description"
+    },
+    {
+      title: "Second Campaign",
+      description: "Campaign description second"
+    },
+     ]
+  }
+
+ before(:each) do
     assign(:campaigns, [
-      Campaign.create!(),
-      Campaign.create!()
+      Campaign.create!(valid_attributes[0]),
+      Campaign.create!(valid_attributes[1])
     ])
   end
 
