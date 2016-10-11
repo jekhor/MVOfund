@@ -1,8 +1,23 @@
 %p#notice= notice
 
+%p
+  = image_tag @campaign.title_image.image.thumb.url unless @campaign.title_image.blank?
+
 %h1= @campaign.title
 
-%p= @campaign.description.html_safe
+%p= @campaign.short_description
+
+%h3
+  Собрано:
+  = @campaign.funded
+  из
+  = @campaign.target
+
+%p
+  = "#{remain_days(@campaign)} (по #{@campaign.end_date})" unless @campaign.end_date.blank?
+
+.fr-view
+  = @campaign.description.html_safe
 
 = link_to 'Edit', edit_campaign_path(@campaign)
 \|

@@ -1,23 +1,10 @@
 %h1 Listing campaigns
 
-%table.table
-  %thead
-    %tr
-      %th Title
-      %th Description
-      %th
-      %th
-      %th
+- @campaigns.each do |campaign|
+  = render partial: 'thumb', locals: {campaign: campaign}
 
-  %tbody
-    - @campaigns.each do |campaign|
-      %tr
-        %td= campaign.title
-        %td= campaign.description
-        %td= link_to 'Show', campaign
-        %td= link_to 'Edit', edit_campaign_path(campaign)
-        %td= link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
+ 
 %br
 
 = link_to 'New Campaign', new_campaign_path

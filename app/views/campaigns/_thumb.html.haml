@@ -1,0 +1,10 @@
+.campaign-thumb{:class => 'col-md-4' }
+  %p
+    = image_tag campaign.title_image.image.thumb.url unless campaign.title_image.blank?
+  %p
+    = link_to campaign.title, campaign
+  %p
+    = campaign.short_description
+  %p
+    = "Собрано: #{campaign.funded} из #{campaign.target} (#{number_to_percentage(campaign.funded / campaign.target, precision: 0)})"
+

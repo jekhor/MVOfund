@@ -25,6 +25,11 @@ class CampaignsController < ApplicationController
   # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
+    unless params[:title_image].blank?
+      title_image = PostImage.new
+      title_image.image = params[:title_image][:image]
+      @campaign.title_image = title_image
+    end
 
     respond_to do |format|
       if @campaign.save
@@ -40,6 +45,13 @@ class CampaignsController < ApplicationController
   # PATCH/PUT /campaigns/1
   # PATCH/PUT /campaigns/1.json
   def update
+
+    unless params[:campaign][:title_image].blank?
+      ti = PostImage.new
+      @campaign.title_image = ti
+      ti.image = params[:campaign][:title_image][:image]
+    end
+
     respond_to do |format|
       if @campaign.update(campaign_params)
         format.html { redirect_to @campaign, notice: 'Campaign was successfully updated.' }
@@ -69,6 +81,6 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params[:campaign].permit(:title, :description)
+      params[:campaign].permit(:title, :short_description, :description, :target, :end_date, :title_image)
     end
 end

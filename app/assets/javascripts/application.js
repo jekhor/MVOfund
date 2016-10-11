@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery.turbolinks
+//= require autonumeric
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks

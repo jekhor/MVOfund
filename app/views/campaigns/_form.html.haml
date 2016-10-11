@@ -3,6 +3,13 @@
 
   .form-inputs
     = f.input :title
+    = f.simple_fields_for :title_image do |image_form|
+      = image_form.input :image, as: :file
+      = image_tag @campaign.title_image.image.thumb.url
+
+    = f.input :short_description, input_html: {placeholder: "Краткое описание кампании"}
+    = f.input :target, input_html: {placeholder: "Целевая сумма в рублях"}
+    = f.input :end_date
     = f.input :description, input_html: { class: 'wysiwyg' }
 
   .form-actions
