@@ -1,0 +1,30 @@
+%h1 Listing payments
+
+%table
+  %thead
+    %tr
+      %th DateTime
+      %th Amount
+      %th Contributor
+      %th Notes
+      %th Campaign
+      %th
+      %th
+      %th
+
+  %tbody
+    - @payments.each do |payment|
+      %tr
+        %td= payment.time
+        %td= payment.amount
+        %td= payment.contributor
+        %td= payment.notes
+        %td
+          = link_to payment.campaign.title, payment.campaign unless payment.campaign.nil?
+        %td= link_to 'Show', payment
+        %td= link_to 'Edit', edit_payment_path(payment)
+        %td= link_to 'Destroy', payment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Payment', new_payment_path

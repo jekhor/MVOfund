@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  get 'post_images/upload'
 
+
+  resources :payments
   resources :campaigns
+
+  get 'post_images/upload'
   post 'post_images/upload' => 'post_images#upload'
   get 'post_images' => 'post_images#index'
 

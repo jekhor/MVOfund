@@ -6,5 +6,8 @@
   %p
     = campaign.short_description
   %p
-    = "Собрано: #{campaign.funded} из #{campaign.target} (#{number_to_percentage(campaign.funded / campaign.target, precision: 0)})"
+    = "Собрано: #{campaign.funded}"
+    = "из #{campaign.target} (#{number_to_percentage(campaign.funded / campaign.target, precision: 0)})" unless campaign.target.nil?
+  %p
+    = "Потрачено: #{campaign.expenses_amount}"
 
