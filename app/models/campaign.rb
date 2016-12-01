@@ -23,4 +23,8 @@ class Campaign < ActiveRecord::Base
   def funded
     earnings_amount
   end
+
+  def rest
+    earnings_amount - expenses_amount
+  end
 end
