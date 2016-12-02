@@ -1,5 +1,22 @@
 %p#notice= notice
 
+%h3 Платёж
+
+%p
+  %b Кампания:
+  = @payment.campaign.title
+%p
+  %b Статья бюджета:
+  = @payment.budget_item.title unless @payment.budget_item.nil?
+%p
+  %b Дата и время:
+  = @payment.time
+%p
+  %b Плательщик:
+  = @payment.contributor
+%p
+  %b Примечания:
+  = @payment.notes
 
 = link_to 'Edit', edit_payment_path(@payment)
 \|

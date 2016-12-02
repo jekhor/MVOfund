@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201215643) do
+ActiveRecord::Schema.define(version: 20161202140234) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer  "campaign_id",                                          null: false
@@ -35,12 +35,14 @@ ActiveRecord::Schema.define(version: 20161201215643) do
 
   create_table "payments", force: :cascade do |t|
     t.datetime "time"
-    t.decimal  "amount",      precision: 12, scale: 2, null: false
+    t.decimal  "amount",         precision: 12, scale: 2, null: false
     t.string   "contributor"
     t.text     "notes"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "campaign_id"
+    t.integer  "budget_item_id"
+    t.index ["budget_item_id"], name: "index_payments_on_budget_item_id"
   end
 
   create_table "post_images", force: :cascade do |t|

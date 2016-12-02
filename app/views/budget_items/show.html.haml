@@ -2,7 +2,7 @@
 
 %p
   %b Campaign:
-  = @budget_item.campaign.title
+  = link_to @budget_item.campaign.title, @budget_item.campaign
 %p
   %b Title:
   = @budget_item.title

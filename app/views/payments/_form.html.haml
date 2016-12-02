@@ -1,7 +1,15 @@
 = simple_form_for(@payment) do |f|
   = f.error_notification
+  -#
+    TODO: Select budget items at campaign change
 
   .form-inputs
+    = f.association :campaign
+    = f.association :budget_item, collection: @payment.campaign.nil? ? [] : @payment.campaign.budget_items
+    = f.input :time
+    = f.input :amount
+    = f.input :contributor
+    = f.input :notes
 
   .form-actions
     = f.button :submit

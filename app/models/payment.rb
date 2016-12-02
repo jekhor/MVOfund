@@ -1,10 +1,13 @@
 class Payment < ActiveRecord::Base
   belongs_to :campaign
+  belongs_to :budget_item
 
   validates :time, presence: true
   validates :amount, presence: true
   validates :amount, numericality: {other_than: 0}
   validates :campaign, presence: true
+
+  #TODO: validate if campaign and budget_item.campaign are same
 
   def self.earnings_amount(campaign=nil)
     self.calculate_sum(true, campaign)

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  
+  get 'payments/update_budget_items' => 'payments#update_budget_items'
 
   resources :budget_items
   resources :payments

@@ -61,6 +61,13 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def update_budget_items
+    @budget_items = BudgetItem.where('campaign_id = ?', params[:campaign_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_payment
@@ -69,6 +76,6 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.fetch(:payment, {}).permit([:amount, :time, :contributor, :notes, :campaign_id])
+      params.fetch(:payment, {}).permit([:amount, :time, :contributor, :notes, :campaign_id, :budget_item_id])
     end
 end
