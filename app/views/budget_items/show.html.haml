@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Campaign:
+  = @budget_item.campaign.title
+%p
+  %b Title:
+  = @budget_item.title
+%p
+  %b Amount:
+  = @budget_item.amount
+
+= link_to 'Edit', edit_budget_item_path(@budget_item)
+\|
+= link_to 'Back', budget_items_path

@@ -1,0 +1,12 @@
+%table
+  %tr
+    %th Статья
+    %th Сумма
+  - campaign.budget_items.each do |bi|
+    %tr
+      %td= bi.title
+      %td= bi.amount
+  %tr
+    %td ИТОГО:
+    %td= campaign.budget_items.map {|i| i.amount}.inject(0, :+)
+

@@ -19,6 +19,8 @@
 .fr-view
   = @campaign.description.html_safe
 
+= render partial: 'budget', locals: {campaign: @campaign}
+
 = link_to 'Edit', edit_campaign_path(@campaign)
 \|
 = link_to 'Back', campaigns_path

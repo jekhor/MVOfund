@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130185605) do
+ActiveRecord::Schema.define(version: 20161201215643) do
+
+  create_table "budget_items", force: :cascade do |t|
+    t.integer  "campaign_id",                                          null: false
+    t.string   "title"
+    t.decimal  "amount",      precision: 12, scale: 2, default: "0.0"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.index ["campaign_id"], name: "index_budget_items_on_campaign_id"
+  end
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "title",                                                      null: false

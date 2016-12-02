@@ -1,0 +1,10 @@
+= simple_form_for(@budget_item) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :campaign
+    = f.input :title
+    = f.input :amount
+
+  .form-actions
+    = f.button :submit

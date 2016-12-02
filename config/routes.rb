@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :budget_items
   resources :payments
   resources :campaigns
 
