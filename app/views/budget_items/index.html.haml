@@ -5,6 +5,7 @@
     %tr
       %th Campaign
       %th Title
+      %th Type
       %th Amount
       %th
       %th
@@ -15,6 +16,7 @@
       %tr
         %td= link_to budget_item.campaign.title, budget_item.campaign
         %td= budget_item.title
+        %td= budget_item.earning? ? "Доходы" : "Расходы"
         %td= budget_item.amount
         %td= link_to 'Show', budget_item
         %td= link_to 'Edit', edit_budget_item_path(budget_item)

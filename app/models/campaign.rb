@@ -1,6 +1,7 @@
 class Campaign < ActiveRecord::Base
   belongs_to :title_image, class_name: "PostImage"
-  has_many :budget_items
+  has_many :payments, inverse_of: :campaign, dependent: :destroy
+  has_many :budget_items, inverse_of: :campaign, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true

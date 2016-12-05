@@ -21,6 +21,10 @@
 
 = render partial: 'budget', locals: {campaign: @campaign}
 
+= render partial: 'payments', locals: {campaign: @campaign}
+
 = link_to 'Edit', edit_campaign_path(@campaign)
+\|
+= link_to 'Destroy', @campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }
 \|
 = link_to 'Back', campaigns_path

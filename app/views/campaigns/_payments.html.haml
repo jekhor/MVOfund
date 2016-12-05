@@ -1,0 +1,22 @@
+%table
+  %thead
+    %tr
+      %th Date
+      %th Contributor
+      %th Notes
+      %th Доходы
+      %th Расходы
+
+  %tbody
+    - campaign.payments.each do |payment|
+      %tr
+        %td= payment.time.to_date
+        %td= payment.contributor
+        %td= payment.notes
+        %td= payment.amount if payment.earning?
+        %td= payment.amount if payment.expense?
+    %tr
+      %td{colspan: 3} ИТОГО:
+      %td= campaign.payments.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
+      %td= campaign.payments.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
+

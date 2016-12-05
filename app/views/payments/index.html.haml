@@ -3,7 +3,8 @@
 %table
   %thead
     %tr
-      %th DateTime
+      %th Date
+      %th Type
       %th Amount
       %th Contributor
       %th Notes
@@ -15,7 +16,8 @@
   %tbody
     - @payments.each do |payment|
       %tr
-        %td= payment.time
+        %td= payment.time.to_date
+        %td= payment.earning? ? "Доходы" : "Расходы"
         %td= payment.amount
         %td= payment.contributor
         %td= payment.notes

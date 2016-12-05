@@ -1,6 +1,6 @@
 class Payment < ActiveRecord::Base
-  belongs_to :campaign
-  belongs_to :budget_item
+  belongs_to :campaign, inverse_of: :budget_items
+  belongs_to :budget_item, inverse_of: :payments
 
   validates :time, presence: true
   validates :amount, presence: true
@@ -23,6 +23,14 @@ class Payment < ActiveRecord::Base
 
   def self.expenses(campaign=nil)
     self.earnings_or_expenses(false, campaign)
+  end
+
+  def earning?
+    !is_expense
+  end
+
+  def expense?
+    is_expense
   end
 
   private
