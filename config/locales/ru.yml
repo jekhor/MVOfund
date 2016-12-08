@@ -1,0 +1,20 @@
+ru:
+  activerecord:
+    models:
+      campaign: 'Проект'
+    attributes:
+      campaign:
+        title: 'Название'
+        title_image: 'Титульное изображение'
+        target: 'Целевая сумма'
+        end_date: 'Конечная дата сбора'
+        short_description: 'Краткое описание'
+        description: 'Описание'
+  simple_form:
+    required:
+      text: 'Требуется'
+      mark: '*'
+    labels:
+      title_image:
+        image: 'Титульное изображение'
+

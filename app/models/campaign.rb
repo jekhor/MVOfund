@@ -11,7 +11,9 @@ class Campaign < ActiveRecord::Base
   end
 
   def earnings_amount
-    Payment.earnings_amount(self)
+    res = Payment.earnings_amount(self)
+    STDERR.puts res.class
+    res
   end
 
   def expenses

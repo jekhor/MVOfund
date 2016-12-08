@@ -2,15 +2,19 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :title
-    = f.simple_fields_for :title_image do |image_form|
-      = image_form.input :image, as: :file
-      = image_tag @campaign.title_image.image.thumb.url
-
-    = f.input :short_description, input_html: {placeholder: "Краткое описание кампании"}
-    = f.input :target, input_html: {placeholder: "Целевая сумма в рублях"}
-    = f.input :end_date
-    = f.input :description, input_html: { class: 'wysiwyg' }
+    .row
+      .col-md-4
+        = f.input :title
+        = f.simple_fields_for :title_image do |image_form|
+          = image_form.input :image, as: :file, input_html: {class: 'form-control'}
+          = image_tag @campaign.title_image.image.thumb.url unless @campaign.title_image.nil?
+   
+        = f.input :target, input_html: {placeholder: "Целевая сумма в рублях"}
+        = f.input :end_date
+    .row
+      .col-md-12
+        = f.input :short_description, input_html: {placeholder: "Краткое описание кампании"}
+        = f.input :description, input_html: { class: 'wysiwyg' }
 
   .form-actions
     = f.button :submit

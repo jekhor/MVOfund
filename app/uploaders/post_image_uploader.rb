@@ -36,6 +36,14 @@ class PostImageUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [150, 150]
   end
 
+  version :campaign_thumb do
+    process :resize_to_fit => [338, nil]
+  end
+
+  version :campaign_title do
+    process :resize_to_fit => [700, 610]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
@@ -53,7 +61,7 @@ class PostImageUploader < CarrierWave::Uploader::Base
     model.image_secure_token ||= SecureRandom.hex(length / 2)
   end
 
-  before :cache, :reset_secure_token
+#  before :cache, :reset_secure_token
 
   def reset_secure_token(file)
     model.image_secure_token = nil

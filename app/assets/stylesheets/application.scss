@@ -19,7 +19,28 @@
  *= require plugins/line_breaker.min.css
  *= require plugins/quick_insert.min.css
  *= require plugins/table.min.css
- *= require_tree .
  */
+
 @import "bootstrap";
 @import "font-awesome";
+@import "campaigns";
+@import "payments";
+@import "budget_items";
+
+main {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+footer {
+  width: 100%;
+  min-height: 30px;
+}
+
+textarea.wysiwyg {
+  height: 500px;
+}
+
+h1 {
+  text-align: center;
+}

@@ -1,10 +1,6 @@
-%h1 Listing campaigns
+%h1 Проекты
 
 - @campaigns.each do |campaign|
   = render partial: 'thumb', locals: {campaign: campaign}
 
-
  
-%br
-
-= link_to 'New Campaign', new_campaign_path
