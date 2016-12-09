@@ -37,7 +37,7 @@ class PostImageUploader < CarrierWave::Uploader::Base
   end
 
   version :campaign_thumb do
-    process :resize_to_fit => [338, nil]
+    process :resize_to_fit => [348, nil]
   end
 
   version :campaign_title do

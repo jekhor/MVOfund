@@ -1,6 +1,8 @@
 %h1 Проекты
 
-- @campaigns.each do |campaign|
-  = render partial: 'thumb', locals: {campaign: campaign}
+- @campaigns_rows.each do |row|
+  .row.mb-2
+    - row.each do |campaign|
+      = render partial: 'thumb', locals: {campaign: campaign}
 
  

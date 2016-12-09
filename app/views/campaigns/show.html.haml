@@ -1,7 +1,4 @@
 .row
-  %p.text-success#notice= notice
-
-.row
   %h1.text-center= @campaign.title
 
 .row
@@ -16,10 +13,11 @@
       из
       %strong= @campaign.target
       руб. (
-      = number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0)
+      = number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0) unless @campaign.target.nil? or @campaign.target == 0
       )
       .progressbar
-        .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
+        - unless @campaign.target.nil? or @campaign.target == 0
+          .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
       Дней осталось:
       %strong=remain_days(@campaign)
 
@@ -29,11 +27,12 @@
         руб.
       из
       %strong= @campaign.budget_expenses_amount
-      (
-      = number_to_percentage(100 * @campaign.spent / @campaign.budget_expenses_amount, precision: 0)
+      руб. (
+      = number_to_percentage(100 * @campaign.spent / @campaign.budget_expenses_amount, precision: 0) unless @campaign.budget_expenses_amount == 0
       ) потрачено
       .progressbar
-        .progressbar-spent{style: "width: #{fraction_to_percent_with_limit(@campaign.spent / @campaign.budget_expenses_amount, precision: 0)}"}
+        - unless @campaign.budget_expenses_amount == 0
+          .progressbar-spent{style: "width: #{fraction_to_percent_with_limit(@campaign.spent / @campaign.budget_expenses_amount, precision: 0) }"}
    
     .row
       .links
@@ -41,11 +40,16 @@
         |
         = link_to 'Платежи проекта', campaign_payments_path(@campaign)
       .links
-        = link_to 'Редактировать', edit_campaign_path(@campaign)
+        = link_to 'Редактировать', edit_campaign_path(@campaign) if user_signed_in?
 
-.row
+    .row.mt-2
+      = button_to 'Поддержать', campaign_support_path(@campaign), method: :get, class: 'button btn btn-success'
+      
+
+.row.mt-2
   .col-md-12
-    %p= @campaign.short_description
+    %p
+      %strong= @campaign.short_description
 
     .fr-view
       = @campaign.description.html_safe

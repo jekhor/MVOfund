@@ -12,14 +12,19 @@
       .container
         %ul.nav.navbar-nav
           %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}= link_to 'Проекты', campaigns_path, class: 'nav-link'
-          %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}= link_to 'Платежи', payments_path, class: 'nav-link'
-          %li.nav-item.float-xs-right.dropdown
-            %a.nav-link.dropdown-toggle{href: '#', id: 'navCreateDropdown', 'data-toggle': 'dropdown', 'aria-haspopup': true, 'aria-expanded': false} Создать
-            .dropdown-menu{'aria-labelledby': 'navCreateDropdown'}
-              = link_to 'Проект', new_campaign_path, class: 'dropdown-item'
-              = link_to 'Платёж', new_payment_path, class: 'dropdown-item'
+          %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}= link_to 'Платежи', payments_path, class: 'nav-link' if user_signed_in?
+          - if user_signed_in?
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle{href: '#', id: 'navCreateDropdown', 'data-toggle': 'dropdown', 'aria-haspopup': true, 'aria-expanded': false} Создать
+              .dropdown-menu{'aria-labelledby': 'navCreateDropdown'}
+                = link_to 'Проект', new_campaign_path, class: 'dropdown-item'
+                = link_to 'Платёж', new_payment_path, class: 'dropdown-item'
+          %li.nav-item.float-xs-right
+            = user_nav_link
           
     %header
+      .container
+        = render partial: 'shared/flash' unless flash.empty?
     .container
       %main
         = yield

@@ -3,13 +3,13 @@
 %table.table
   %thead
     %tr
-      %th Date
-      %th Budget Item
-      %th Type
-      %th Amount
-      %th Contributor
-      %th Notes
-      %th Campaign
+      %th Дата
+      %th Статья бюджета
+      %th Тип
+      %th Сумма
+      %th Плательщик/Получатель
+      %th Примечания
+      %th Проект
       %th
       %th
       %th
@@ -25,10 +25,10 @@
         %td= payment.notes
         %td
           = link_to payment.campaign.title, payment.campaign unless payment.campaign.nil?
-        %td= link_to 'Show', payment
-        %td= link_to 'Edit', edit_payment_path(payment)
-        %td= link_to 'Destroy', payment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Show', payment if user_signed_in?
+        %td= link_to 'Edit', edit_payment_path(payment) if user_signed_in?
+        %td= link_to 'Destroy', payment, :method => :delete, :data => { :confirm => 'Are you sure?' } if user_signed_in?
 
 %br
 
-= link_to 'New Payment', new_payment_path
+= link_to 'New Payment', new_payment_path if user_signed_in?

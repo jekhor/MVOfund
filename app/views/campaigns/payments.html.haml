@@ -4,4 +4,4 @@
 .row
   %h4 Платежи проекта
 
-= render partial: 'payments', locals: {payments: @payments}
+= render partial: 'payments', locals: {payments: @payments} if user_signed_in?

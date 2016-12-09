@@ -1,10 +1,18 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :budget, :payments]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :budget, :payments, :support]
+  before_action :authenticate_user!, except: [:index, :show, :budget, :payments, :support]
 
   # GET /campaigns
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
+    i = 0
+    @campaigns_rows = []
+    @campaigns.each do |c|
+      @campaigns_rows[i / 3] = Array.new() if @campaigns_rows[i / 3].nil?
+      @campaigns_rows[i / 3] << c
+      i += 1
+    end
   end
 
   # GET /campaigns/1
@@ -20,6 +28,9 @@ class CampaignsController < ApplicationController
     @payments = @campaign.payments.order(time: :desc)
   end
 
+  def support
+  end
+
   # GET /campaigns/new
   def new
     @campaign = Campaign.new
@@ -33,9 +44,9 @@ class CampaignsController < ApplicationController
   # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
-    unless params[:title_image].blank?
+    unless params[:campaign][:title_image].blank?
       title_image = PostImage.new
-      title_image.image = params[:title_image][:image]
+      title_image.image = params[:campaign][:title_image][:image]
       @campaign.title_image = title_image
     end
 

@@ -1,4 +1,5 @@
 class PostImagesController < ApplicationController
+  before_action :authenticate_user!, only: [:upload]
 
   def index
     @images = PostImage.all

@@ -12,7 +12,7 @@
     - payments.each do |payment|
       %tr{class: payment.expense? ? 'expense' : 'earning'}
         %td= payment.time.to_date
-        %td= payment.budget_item.title
+        %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.contributor
         %td= payment.notes
         %td= payment.amount if payment.earning?

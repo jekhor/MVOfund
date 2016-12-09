@@ -7,5 +7,5 @@
 = render partial: 'budget', locals: {budget: @budget}
 
 .row
-  = link_to 'Добавить статью', new_budget_item_path
+  = link_to 'Добавить статью бюджета', new_budget_item_path if user_signed_in?
 
