@@ -10,6 +10,7 @@
   %body
     %nav.navbar.navbar-light.bg-faded
       .container
+        = link_to 'MVOfund', root_path, class: 'navbar-brand'
         %ul.nav.navbar-nav
           %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}= link_to 'Проекты', campaigns_path, class: 'nav-link'
           %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}= link_to 'Платежи', payments_path, class: 'nav-link' if user_signed_in?
@@ -30,4 +31,12 @@
     .container
       %main
         = yield
-    %footer
+
+    %footer.footer
+      %nav.navbar.navbar-light.bg-faded
+        .container
+          %ul.nav.navbar-nav
+            %li.nav-item
+              = link_to 'ОО «Минское велосипедное общество»', 'http://bike.org.by', class: 'nav-link'
+            %li.nav-item.float-xs-right
+              = link_to 'Github', 'https://github.com/jekhor/MVOfund.git'

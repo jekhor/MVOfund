@@ -27,6 +27,15 @@
 @import "payments";
 @import "budget_items";
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
 main {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -34,7 +43,11 @@ main {
 
 footer {
   width: 100%;
-  min-height: 30px;
+//  min-height: 30px;
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+//  line-height: 60px;
 }
 
 textarea.wysiwyg {
