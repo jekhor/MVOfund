@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :budget, :payments]
 
   # GET /campaigns
   # GET /campaigns.json
@@ -10,6 +10,14 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+  end
+
+  def budget
+    @budget = @campaign.budget_items.order(:is_expense)
+  end
+
+  def payments
+    @payments = @campaign.payments.order(time: :desc)
   end
 
   # GET /campaigns/new

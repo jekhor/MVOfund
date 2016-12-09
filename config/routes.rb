@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   get 'payments/update_budget_items' => 'payments#update_budget_items'
+  get 'campaigns/:id/budget' => 'campaigns#budget', as: 'campaign_budget'
+  get 'campaigns/:id/payments' => 'campaigns#payments', as: 'campaign_payments'
 
   resources :budget_items
   resources :payments

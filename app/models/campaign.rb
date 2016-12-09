@@ -11,21 +11,40 @@ class Campaign < ActiveRecord::Base
   end
 
   def earnings_amount
-    res = Payment.earnings_amount(self)
-    STDERR.puts res.class
-    res
+    Payment.earnings_amount(self)
   end
 
   def expenses
-    Payment.expensed(self)
+    Payment.expenses(self)
   end
 
   def earnings
     Payment.earnings(self)
   end
 
+  def budget_expenses_amount
+    BudgetItem.expenses_amount(self)
+  end
+
+  def budget_earnings_amount
+    BudgetItem.earnings_amount(self)
+  end
+
+  def budget_expenses
+    BudgetItem.expenses(self)
+  end
+
+  def budget_earnings
+    BudgetItem.earnings(self)
+  end
+
+
   def funded
     earnings_amount
+  end
+
+  def spent
+    expenses_amount
   end
 
   def rest

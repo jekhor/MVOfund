@@ -1,9 +1,10 @@
 %h1 Listing payments
 
-%table
+%table.table
   %thead
     %tr
       %th Date
+      %th Budget Item
       %th Type
       %th Amount
       %th Contributor
@@ -17,6 +18,7 @@
     - @payments.each do |payment|
       %tr
         %td= payment.time.to_date
+        %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.earning? ? "Доходы" : "Расходы"
         %td= payment.amount
         %td= payment.contributor

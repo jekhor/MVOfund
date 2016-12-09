@@ -1,0 +1,7 @@
+.row
+  %h1.text-center= @campaign.title
+
+.row
+  %h4 Платежи проекта
+
+= render partial: 'payments', locals: {payments: @payments}

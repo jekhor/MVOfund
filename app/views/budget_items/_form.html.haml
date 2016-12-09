@@ -1,10 +1,14 @@
-= simple_form_for(@budget_item) do |f|
-  = f.error_notification
+.row
+  .col-md-8
+    = simple_form_for(@budget_item) do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.association :campaign
-    = f.input :title
-    = f.input :amount
+      .form-inputs
+        = f.association :campaign
+        = f.input :title
+        = f.input :is_expense, as: :radio_buttons, collection: {' Приход': false, ' Расход': true}, label: false
+        = f.input :amount
 
-  .form-actions
-    = f.button :submit
+        .row
+          .form-actions
+            = f.button :submit

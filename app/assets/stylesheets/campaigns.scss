@@ -30,9 +30,16 @@
   width: 100%;
   padding: 0;
 
+  div {
+    height: 100%;
+  }
+
   .progressbar-funded {
     background-color: #2bde73;
-    height: 100%;
+  }
+
+  .progressbar-spent {
+    background-color: #ff3535;
   }
 }
 

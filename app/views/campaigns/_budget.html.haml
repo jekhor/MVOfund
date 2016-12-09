@@ -5,13 +5,13 @@
       %th Приход
       %th Расход
   %tbody
-    - campaign.budget_items.each do |bi|
-      %tr
+    - budget.each do |bi|
+      %tr{class: bi.expense? ? 'expense' : 'earning'}
         %td= bi.title
         %td= bi.amount if bi.earning?
         %td= bi.amount if bi.expense?
     %tr
-      %td ИТОГО:
-      %td= campaign.budget_items.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
-      %td= campaign.budget_items.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
+      %td.text-md-right ИТОГО:
+      %td= budget.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
+      %td= budget.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
 

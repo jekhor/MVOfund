@@ -1,0 +1,11 @@
+.row
+  %h1.text-center= @campaign.title
+
+.row
+  %h4 Бюджет проекта
+
+= render partial: 'budget', locals: {budget: @budget}
+
+.row
+  = link_to 'Добавить статью', new_budget_item_path
+

@@ -2,21 +2,23 @@
   %thead
     %tr
       %th Дата
+      %th Статья
       %th Плательщик/Получатель
       %th Примечание
       %th Приход
       %th Расход
 
   %tbody
-    - campaign.payments.each do |payment|
-      %tr
+    - payments.each do |payment|
+      %tr{class: payment.expense? ? 'expense' : 'earning'}
         %td= payment.time.to_date
+        %td= payment.budget_item.title
         %td= payment.contributor
         %td= payment.notes
         %td= payment.amount if payment.earning?
         %td= payment.amount if payment.expense?
     %tr
-      %td{colspan: 3} ИТОГО:
-      %td= campaign.payments.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
-      %td= campaign.payments.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
+      %td.text-md-right{colspan: 4} ИТОГО:
+      %td= payments.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
+      %td= payments.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
 
