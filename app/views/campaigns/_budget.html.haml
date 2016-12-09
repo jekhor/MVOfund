@@ -4,12 +4,16 @@
       %th Статья
       %th Приход
       %th Расход
+      - if user_signed_in?
+        %th
   %tbody
     - budget.each do |bi|
       %tr{class: bi.expense? ? 'expense' : 'earning'}
         %td= bi.title
         %td= bi.amount if bi.earning?
         %td= bi.amount if bi.expense?
+        - if user_signed_in?
+          %td= link_to 'Изменить', edit_budget_item_path(bi)
     %tr
       %td.text-md-right ИТОГО:
       %td= budget.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
