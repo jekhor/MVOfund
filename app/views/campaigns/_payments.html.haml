@@ -5,6 +5,7 @@
       %th Статья
       %th Плательщик/Получатель
       %th Примечание
+      %th Номер
       %th Приход
       %th Расход
 
@@ -15,6 +16,7 @@
         %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.contributor
         %td= payment.notes
+        %td= payment.payment_number
         %td= payment.amount if payment.earning?
         %td= payment.amount if payment.expense?
     %tr

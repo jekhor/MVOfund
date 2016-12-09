@@ -6,6 +6,7 @@
       %th Дата
       %th Статья бюджета
       %th Тип
+      %th Номер
       %th Сумма
       %th Плательщик/Получатель
       %th Примечания
@@ -20,6 +21,7 @@
         %td= payment.time.to_date
         %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.earning? ? "Доходы" : "Расходы"
+        %td= payment.payment_number 
         %td= payment.amount
         %td= payment.contributor
         %td= payment.notes

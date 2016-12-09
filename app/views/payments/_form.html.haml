@@ -8,6 +8,7 @@
     = f.association :budget_item, collection: @payment.campaign.nil? ? [] : @payment.campaign.budget_items
     = f.input :time
     = f.input :is_expense, as: :radio_buttons, collection: {' Приход': false, ' Расход': true}, label: false
+    = f.input :payment_number
     = f.input :amount
     = f.input :contributor
     = f.input :notes
