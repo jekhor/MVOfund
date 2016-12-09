@@ -1,6 +1,11 @@
+# encoding: utf-8
+
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :budget, :payments, :support]
   before_action :authenticate_user!, except: [:index, :show, :budget, :payments, :support]
+
+#  add_breadcrumb 'Главная', :root_path
+  add_breadcrumb 'Проекты', :campaigns_path
 
   # GET /campaigns
   # GET /campaigns.json
@@ -18,13 +23,18 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    add_breadcrumb @campaign.title, campaign_path(@campaign)
   end
 
   def budget
+    add_breadcrumb @campaign.title, campaign_path(@campaign)
+    add_breadcrumb 'Бюджет', campaign_budget_path(@campaign)
     @budget = @campaign.budget_items.order(:is_expense)
   end
 
   def payments
+    add_breadcrumb @campaign.title, campaign_path(@campaign)
+    add_breadcrumb 'Платежи', campaign_payments_path(@campaign)
     @payments = @campaign.payments.order(time: :desc)
   end
 

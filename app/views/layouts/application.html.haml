@@ -24,6 +24,8 @@
           
     %header
       .container
+        /%ol.breadcrumb
+        /  = render_breadcrumbs tag: :li, separator: '', tag_class: 'breadcrumb-item', builder: BreadcrumbsBootstrap4Builder
         = render partial: 'shared/flash' unless flash.empty?
     .container
       %main

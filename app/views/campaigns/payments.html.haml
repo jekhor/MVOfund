@@ -2,6 +2,9 @@
   %h1.text-center= @campaign.title
 
 .row
-  %h4 Платежи проекта
+  %strong Платежи проекта
+  (
+  =link_to 'назад', @campaign
+  )
 
 = render partial: 'payments', locals: {payments: @payments} if user_signed_in?

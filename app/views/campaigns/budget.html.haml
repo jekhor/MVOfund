@@ -2,7 +2,10 @@
   %h1.text-center= @campaign.title
 
 .row
-  %h4 Бюджет проекта
+  %strong Бюджет проекта
+  (
+  =link_to 'назад', @campaign
+  )
 
 = render partial: 'budget', locals: {budget: @budget}
 

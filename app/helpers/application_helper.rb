@@ -25,3 +25,25 @@ module ApplicationHelper
     }[flash_type.to_sym] || 'glyphicon-screenshot'
   end
 end
+
+class BreadcrumbsBootstrap4Builder < BreadcrumbsOnRails::Breadcrumbs::Builder
+  def render
+    @elements.collect do |element|
+      render_element(element)
+    end.join(@options[:separator] || " &raquo; ")
+  end
+
+  def render_element(element)
+    if element.path == nil
+      content = compute_name(element)
+    else
+      content = @context.link_to_unless_current(compute_name(element), compute_path(element), element.options)
+    end
+    tag_class = @options[:tag_class] || ''
+    if @options[:tag]
+      @context.content_tag(@options[:tag], content, class: tag_class)
+    else
+      ERB::Util.h(content)
+    end
+  end
+end
