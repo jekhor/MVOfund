@@ -2,6 +2,8 @@ ru:
   activerecord:
     models:
       campaign: 'Проект'
+      budget_item: 'Статья бюджета'
+      payment: 'Платёж'
     attributes:
       campaign:
         title: 'Название'
@@ -10,6 +12,17 @@ ru:
         end_date: 'Конечная дата сбора'
         short_description: 'Краткое описание'
         description: 'Описание'
+      budget_item:
+        title: 'Название'
+        amount: 'Сумма'
+        campaign: 'Проект'
+      payment:
+        time: 'Дата и время'
+        contributor: 'Плательщик/Получатель'
+        notes: 'Примечание'
+        amount: 'Сумма'
+        budget_item: 'Статья бюджета'
+        campaign: 'Проект'
   simple_form:
     required:
       text: 'Требуется'
