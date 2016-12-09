@@ -27,6 +27,10 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
 
+    if @payment.budget_item.nil? and !params[:budget_item_title].nil?
+      bi = BudgetItem.where('campaign_id = ? AND title = ?', @payment.campaign.id, params[:budget_item_title])
+    end
+
     respond_to do |format|
       if @payment.save
         format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
