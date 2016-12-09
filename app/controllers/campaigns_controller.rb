@@ -60,6 +60,8 @@ class CampaignsController < ApplicationController
       @campaign.title_image = title_image
     end
 
+    @campaign.budget_items << BudgetItem.new(title: 'Пожертвования', is_expense: false, amount: @campaign.target || 0)
+
     respond_to do |format|
       if @campaign.save
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
