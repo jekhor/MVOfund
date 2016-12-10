@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require autonumeric
 //= require jquery_ujs
+//= require tether
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require froala_editor.min.js

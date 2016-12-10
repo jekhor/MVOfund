@@ -64,3 +64,5 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views', git: 'https://github.com/hisea/devise-bootstrap-views.git', branch: 'bootstrap4'
 gem "breadcrumbs_on_rails"
+gem 'tether-rails'
+
