@@ -48,7 +48,7 @@ GEM
     arel (7.1.4)
     autonumeric-rails (1.9.46.2)
       jquery-rails (>= 2.0.2)
-    autoprefixer-rails (6.5.3.1)
+    autoprefixer-rails (6.5.4)
       execjs
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
@@ -130,6 +130,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_magick (4.6.0)
+    mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
     mysql2 (0.4.5)
@@ -266,6 +267,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   mini_magick
+  mini_portile2
   mysql2
   rails (= 5.0.0.1)
   rails-i18n (= 5.0.1)
