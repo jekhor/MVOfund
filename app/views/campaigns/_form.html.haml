@@ -14,7 +14,7 @@
     .row
       .col-md-12
         = f.input :short_description, input_html: {placeholder: "Краткое описание кампании"}
-        = f.input :description, input_html: { class: 'wysiwyg' }
+        = f.input :description, input_html: { class: 'tinymce', rows: 50 }
 
   .form-actions
     = f.button :submit
