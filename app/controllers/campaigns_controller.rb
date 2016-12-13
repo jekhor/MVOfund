@@ -11,13 +11,6 @@ class CampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     @campaigns = Campaign.all
-    i = 0
-    @campaigns_rows = []
-    @campaigns.each do |c|
-      @campaigns_rows[i / 3] = Array.new() if @campaigns_rows[i / 3].nil?
-      @campaigns_rows[i / 3] << c
-      i += 1
-    end
   end
 
   # GET /campaigns/1

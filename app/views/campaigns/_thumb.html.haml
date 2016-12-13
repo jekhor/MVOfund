@@ -1,26 +1,26 @@
-.campaign-thumb.col-md-4
-  .campaign-box
-    = link_to image_tag(campaign.title_image.image.campaign_thumb.url), campaign unless campaign.title_image.blank?
-    .campaign-content
-      %h6.campaign-title
-        = link_to campaign.title, campaign
-      %p
-        = campaign.short_description
-      - unless campaign.target.nil?
-        .progressbar
-          .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(campaign.funded / campaign.target, precision: 0)}"}
-      %ul.funding-stats
+.card
+  = link_to image_tag(campaign.title_image.image.campaign_thumb.url, class: 'card-img-top img-fluid'), campaign unless campaign.title_image.blank?
+  .card-block
+    %h5.card-title.campaign-title
+      = link_to campaign.title, campaign
+    %p.card-text
+      = campaign.short_description
+    - unless campaign.target.nil?
+      .progressbar
+        .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(campaign.funded / campaign.target, precision: 0)}"}
+    %ul.funding-stats
+      %li
+        .stats-value
+          %strong= "#{campaign.funded} руб."
+        %span.stats-label
+          = "собрано (#{number_to_percentage(100 * campaign.funded / campaign.target, precision: 0)})"
+      %li
+        .stats-value
+          %strong= "#{remain_days(campaign)} дней"
+        %span.stats-label
+          = "осталось"
+      - if user_signed_in?
         %li
-          .stats-value
-            %strong= "#{campaign.funded} руб."
-          %span.stats-label
-            = "собрано (#{number_to_percentage(100 * campaign.funded / campaign.target, precision: 0)})"
-        %li
-          .stats-value
-            %strong= "#{remain_days(campaign)} дней"
-          %span.stats-label
-            = "осталось"
-        %li
-          = link_to 'Редактировать', edit_campaign_path(campaign) if user_signed_in?
-          = link_to 'Удалить', campaign, method: :delete, data: {confirm: 'Вы уверены?'} if user_signed_in?
+          = link_to 'Редактировать', edit_campaign_path(campaign)
+          = link_to 'Удалить', campaign, method: :delete, data: {confirm: 'Вы уверены?'}
 

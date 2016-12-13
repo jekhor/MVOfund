@@ -1,30 +1,9 @@
-.campaign-thumb {
-  background-color: #ffffff;
-
-  .campaign-box {
-    border-color: #aaaaaa;
-    border-style: solid;
-    border-width: 1px;
-    padding: 0;
-
-    img {
-      width: 100%;
-    }
-  }
-  
-  .campaign-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 15px;
-
-    ul.funding-stats {
-      list-style-type: none;
-      padding: 0;
-      li {
-        display: inline-block;
-        margin-right: 15px;
-      }
-    }
+ul.funding-stats {
+  list-style-type: none;
+  padding: 0;
+  li {
+    display: inline-block;
+    margin-right: 15px;
   }
 }
 
@@ -64,4 +43,12 @@ textarea#campaign_short_description {
   height: 100px;
 }
 
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 4;
+  }
+}
 
