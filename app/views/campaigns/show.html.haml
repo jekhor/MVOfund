@@ -44,7 +44,7 @@
             |
             = link_to 'Платежи проекта', campaign_payments_path(@campaign)
           .links
-            = link_to 'Редактировать', edit_campaign_path(@campaign) if user_signed_in?
+            = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
 
         .row.mt-2
           = button_to 'Поддержать', campaign_support_path(@campaign), method: :get, class: 'button btn btn-success'
