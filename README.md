@@ -5,6 +5,7 @@
 Для запуска:
 
     bundle install
+    ./bin/rake db:setup
     bundle exec rails console
     > User.new(email: 'test@example.com', password: 'password').save
     => true
