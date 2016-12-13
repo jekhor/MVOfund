@@ -22,3 +22,5 @@
             = "осталось"
         %li
           = link_to 'Редактировать', edit_campaign_path(campaign) if user_signed_in?
+          = link_to 'Удалить', campaign, method: :delete, data: {confirm: 'Вы уверены?'} if user_signed_in?
+
