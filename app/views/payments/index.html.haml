@@ -4,13 +4,13 @@
   %thead
     %tr
       %th Дата
+      %th Проект
       %th Статья бюджета
       %th Тип
       %th Номер
       %th Сумма
       %th Плательщик/Получатель
       %th Примечания
-      %th Проект
       %th
       %th
       %th
@@ -19,14 +19,14 @@
     - @payments.each do |payment|
       %tr
         %td= payment.time.to_date
+        %td
+          = link_to payment.campaign.title, payment.campaign unless payment.campaign.nil?
         %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.earning? ? "Доходы" : "Расходы"
         %td= payment.payment_number 
         %td= payment.amount
         %td= payment.contributor
         %td= payment.notes
-        %td
-          = link_to payment.campaign.title, payment.campaign unless payment.campaign.nil?
         %td= link_to 'Show', payment if user_signed_in?
         %td= link_to 'Edit', edit_payment_path(payment) if user_signed_in?
         %td= link_to 'Destroy', payment, :method => :delete, :data => { :confirm => 'Are you sure?' } if user_signed_in?
