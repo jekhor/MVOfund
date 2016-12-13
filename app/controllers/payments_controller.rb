@@ -29,8 +29,6 @@ class PaymentsController < ApplicationController
 
     p = params.fetch(:payment,{}).permit([:budget_item_title])
 
-    STDERR.puts  @payment.budget_item.inspect
-    STDERR.puts  p[:budget_item_title].inspect
     if @payment.budget_item.nil? and !p[:budget_item_title].nil?
       bi = BudgetItem.where('campaign_id = ? AND title = ?', @payment.campaign.id, p[:budget_item_title]).first
       @payment.budget_item = bi
