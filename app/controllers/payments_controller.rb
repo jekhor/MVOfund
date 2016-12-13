@@ -29,7 +29,7 @@ class PaymentsController < ApplicationController
 
     p = params.fetch(:payment,{}).permit([:budget_item_title])
 
-    if @payment.budget_item.nil? and !p[:budget_item_title].nil?
+    if @payment.budget_item.nil? and !p[:budget_item_title].nil? and !@payment.campaign.nil?
       bi = BudgetItem.where('campaign_id = ? AND title = ?', @payment.campaign.id, p[:budget_item_title]).first
       @payment.budget_item = bi
     end
