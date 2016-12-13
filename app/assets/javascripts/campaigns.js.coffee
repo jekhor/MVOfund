@@ -26,6 +26,7 @@ ready = ->
     menubar: false,
     file_picker_callback: file_picker_cb,
     file_picker_types: 'image',
+    convert_urls: false,
     language: 'ru',
     images_upload_url: '/post_images/upload',
     images_upload_credentials: true,
