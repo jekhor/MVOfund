@@ -1,9 +1,10 @@
 .row
-  %h1.text-center= @campaign.title
+  .col-md-8
+    %h1= @campaign.title
 
 .row
   .col-md-8
-    = image_tag @campaign.title_image.image.campaign_title.url unless @campaign.title_image.blank?
+    = image_tag @campaign.title_image.image.campaign_title.url, class: 'campaign-image' unless @campaign.title_image.blank?
 
   .col-md-4
     .row
@@ -52,7 +53,7 @@
     %p
       %h5= @campaign.short_description
 
-    .fr-view.text-justify
+    .text-justify
       = @campaign.description.html_safe
 
 
