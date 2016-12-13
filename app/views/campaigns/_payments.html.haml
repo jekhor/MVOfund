@@ -3,9 +3,9 @@
     %tr
       %th Дата
       %th Статья
-      %th Плательщик/Получатель
-      %th Примечание
-      %th Номер
+      - if user_signed_in?
+        %th Плательщик/Получатель
+        %th Номер
       %th Приход
       %th Расход
 
@@ -14,9 +14,9 @@
       %tr{class: payment.expense? ? 'expense' : 'earning'}
         %td= payment.time.to_date
         %td= payment.budget_item.title unless payment.budget_item.nil?
-        %td= payment.contributor
-        %td= payment.notes
-        %td= payment.payment_number
+        - if user_signed_in?
+          %td= payment.contributor
+          %td= payment.payment_number
         %td= payment.amount if payment.earning?
         %td= payment.amount if payment.expense?
     %tr

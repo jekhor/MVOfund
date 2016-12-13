@@ -27,8 +27,13 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(payment_params)
 
-    if @payment.budget_item.nil? and !params[:budget_item_title].nil?
-      bi = BudgetItem.where('campaign_id = ? AND title = ?', @payment.campaign.id, params[:budget_item_title])
+    p = params.fetch(:payment,{}).permit([:budget_item_title])
+
+    STDERR.puts  @payment.budget_item.inspect
+    STDERR.puts  p[:budget_item_title].inspect
+    if @payment.budget_item.nil? and !p[:budget_item_title].nil?
+      bi = BudgetItem.where('campaign_id = ? AND title = ?', @payment.campaign.id, p[:budget_item_title]).first
+      @payment.budget_item = bi
     end
 
     respond_to do |format|

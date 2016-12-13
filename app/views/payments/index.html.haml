@@ -7,10 +7,10 @@
       %th Проект
       %th Статья бюджета
       %th Тип
-      %th Номер
+      - if user_signed_in?
+        %th Номер
+        %th Плательщик/Получатель
       %th Сумма
-      %th Плательщик/Получатель
-      %th Примечания
       %th
       %th
       %th
@@ -23,10 +23,10 @@
           = link_to payment.campaign.title, payment.campaign unless payment.campaign.nil?
         %td= payment.budget_item.title unless payment.budget_item.nil?
         %td= payment.earning? ? "Доходы" : "Расходы"
-        %td= payment.payment_number 
+        - if user_signed_in?
+          %td= payment.payment_number 
+          %td= payment.contributor
         %td= payment.amount
-        %td= payment.contributor
-        %td= payment.notes
         %td= link_to 'Show', payment if user_signed_in?
         %td= link_to 'Edit', edit_payment_path(payment) if user_signed_in?
         %td= link_to 'Destroy', payment, :method => :delete, :data => { :confirm => 'Are you sure?' } if user_signed_in?

@@ -11,15 +11,17 @@
 %p
   %b Дата и время:
   = @payment.time
-%p
-  %b Номер:
-  = @payment.payment_number
-%p
-  %b Плательщик:
-  = @payment.contributor
-%p
-  %b Примечания:
-  = @payment.notes
+
+- if user_signed_in?
+  %p
+    %b Номер:
+    = @payment.payment_number
+  %p
+    %b Плательщик:
+    = @payment.contributor
+  %p
+    %b Примечания:
+    = @payment.notes
 
 = link_to 'Edit', edit_payment_path(@payment)
 \|
