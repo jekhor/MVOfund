@@ -1,3 +1,7 @@
+- set_meta_tags title: @campaign.title
+- set_meta_tags image_src: self.request.base_url + @campaign.title_image.image.url
+- set_meta_tags og: {title: @campaign.title, image: self.request.base_url + @campaign.title_image.image.campaign_title.url, description: @campaign.short_description}
+- set_meta_tags og: {url: self.request.original_url}
 .row
   .col-md-8
     %h1= @campaign.title
