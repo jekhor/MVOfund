@@ -59,14 +59,15 @@ module HutkiGrosh
       valid, errors = validate
       raise HGError, "Bill is invalid:\n#{errors.map {|e| e[:error]}.join("\n")}" unless valid
       attrs = @attributes.dup
-      attrs[:products] = @attributes[:products].dup
-      attrs[:products][:count] = attrs[:products].size
-
       [:dueDt, :addedDt, :payedDt].each do |key|
         attrs[key] = HGUtils.time2json(attrs[key]) if attrs[key].kind_of? Time
       end
 
-      attrs.to_json
+      JSON.pretty_generate attrs
+    end
+
+    def to_s
+      to_json
     end
   end
 

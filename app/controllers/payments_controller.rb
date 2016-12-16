@@ -104,6 +104,7 @@ class PaymentsController < ApplicationController
         payment.contributor = bill[:fullName]
         payment.is_expense = false
         payment.payment_number = bill_id.to_s
+        payment.notes = bill.to_s
       end
     rescue HutkiGrosh::HGError => e
       logger.info "#{e.class.to_s}: #{e.message}"
