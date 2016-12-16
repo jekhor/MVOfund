@@ -103,8 +103,10 @@ class PaymentsController < ApplicationController
         payment.amount = bill[:amt]
         payment.contributor = bill[:fullName]
         payment.is_expense = false
-        payment.payment_number = bill_id
+        payment.payment_number = bill_id.to_s
       end
+    rescue HutkiGrosh::HGError => e
+      logger.info "#{e.class.to_s}: #{e.message}"
     ensure
       hg.logout
     end
@@ -112,8 +114,8 @@ class PaymentsController < ApplicationController
     if payment and payment.save
       head :ok
     else
-      puts payment.inspect
-      puts payment.errors.inspect
+      logger.info "Payment save failed: payment=#{payment.inspect}"
+      logger.info payment.errors.messages.inspect if payment
       head :unprocessable_entity
     end
   end

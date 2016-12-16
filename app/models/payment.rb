@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   validates :time, presence: true
   validates :amount, presence: true
   validates :amount, numericality: {other_than: 0}
-  validates :campaign, presence: true
+#  validates :campaign, presence: true
   validates :payment_number, uniqueness: true, allow_nil: true
 
   #TODO: validate if campaign and budget_item.campaign are same
