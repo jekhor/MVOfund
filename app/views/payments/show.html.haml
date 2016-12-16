@@ -4,7 +4,7 @@
 
 %p
   %b Кампания:
-  = @payment.campaign.title
+  = @payment.campaign.title if @payment.campaign
 %p
   %b Статья бюджета:
   = @payment.budget_item.title unless @payment.budget_item.nil?
@@ -21,7 +21,8 @@
     = @payment.contributor
   %p
     %b Примечания:
-    = @payment.notes
+    %pre
+      = @payment.notes
 
 = link_to 'Edit', edit_payment_path(@payment)
 \|
