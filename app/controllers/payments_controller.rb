@@ -1,6 +1,8 @@
+require 'hutkigrosh'
+
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :hg_notify]
 
   # GET /payments
   # GET /payments.json
@@ -73,6 +75,46 @@ class PaymentsController < ApplicationController
     @budget_items = BudgetItem.where('campaign_id = ?', params[:campaign_id])
     respond_to do |format|
       format.js
+    end
+  end
+
+  def hg_notify
+    payment = nil
+    bill_id = params.permit(:purchaseid)[:purchaseid]
+    c = Rails.configuration.hutkigrosh
+    hg = HutkiGrosh::HutkiGrosh.new(c.base_url, c.user, c.password)
+    begin
+      hg.login
+      bill = hg.get_bill(bill_id)
+
+      puts bill.inspect
+
+      case bill[:eripId]
+      when c.erip_donation_id
+        payment = Payment.new
+        begin
+          campaign = Campaign.find(bill[:invId].to_i)
+          payment.campaign = campaign
+          bi = BudgetItem.where('campaign_id = ? AND title = ?', campaign.id, 'Пожертвования').first
+          payment.budget_item = bi
+        rescue
+        end
+        payment.time = bill[:payedDt]
+        payment.amount = bill[:amt]
+        payment.contributor = bill[:fullName]
+        payment.is_expense = false
+        payment.payment_number = bill_id
+      end
+    ensure
+      hg.logout
+    end
+
+    if payment and payment.save
+      head :ok
+    else
+      puts payment.inspect
+      puts payment.errors.inspect
+      head :unprocessable_entity
     end
   end
 

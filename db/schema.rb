@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210191654) do
+ActiveRecord::Schema.define(version: 20161215235726) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer  "campaign_id",                                          null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20161210191654) do
     t.integer  "campaign_id"
     t.integer  "budget_item_id"
     t.boolean  "is_expense",                              default: false, null: false
-    t.integer  "payment_number"
+    t.string   "payment_number"
     t.index ["budget_item_id"], name: "index_payments_on_budget_item_id"
   end
 

@@ -68,4 +68,5 @@ gem "breadcrumbs_on_rails"
 gem 'tether-rails'
 gem 'mini_portile2'
 gem 'meta-tags'
+gem 'rest-client'
 
