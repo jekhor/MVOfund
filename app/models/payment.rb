@@ -11,4 +11,10 @@ class Payment < ActiveRecord::Base
   #TODO: validate if campaign and budget_item.campaign are same
 
   include FinanceRecord
+
+  def self.sum_for_bi(budget_item)
+    res = select('sum(amount) AS sum').where('budget_item_id = ?', budget_item.id)
+    res.first.sum.nil? ? 0 : res.first.sum
+  end
+
 end

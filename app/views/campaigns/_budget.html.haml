@@ -4,6 +4,7 @@
       %th Статья
       %th Приход
       %th Расход
+      %th Выполнение
       - if user_signed_in?
         %th
   %tbody
@@ -12,6 +13,8 @@
         %td= bi.title
         %td= bi.amount if bi.earning?
         %td= bi.amount if bi.expense?
+        %td
+          %progress.progress.progress-success{value: Payment.sum_for_bi(bi), max: bi.amount}
         - if user_signed_in?
           %td= link_to 'Изменить', edit_budget_item_path(bi)
     %tr
