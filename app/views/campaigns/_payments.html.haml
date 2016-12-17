@@ -6,21 +6,19 @@
       - if user_signed_in?
         %th Плательщик/Получатель
         %th Номер
-      %th Приход
-      %th Расход
+      %th= show_expenses ? "Расходы" : "Поступления"
 
   %tbody
     - payments.each do |payment|
+      - next if payment.is_expense? != show_expenses
       %tr{class: payment.expense? ? 'expense' : 'earning'}
         %td= payment.time.to_date
         %td= payment.budget_item.title unless payment.budget_item.nil?
         - if user_signed_in?
           %td= payment.contributor
           %td= payment.payment_number
-        %td= payment.amount if payment.earning?
-        %td= payment.amount if payment.expense?
+        %td= payment.amount
     %tr
-      %td.text-md-right{colspan: 4} ИТОГО:
-      %td= payments.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
-      %td= payments.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
+      %td.text-md-right{colspan: user_signed_in? ? 4 : 2} ИТОГО:
+      %td= payments.map {|i| i.expense? == show_expenses ? i.amount : 0}.inject(0, :+)
 

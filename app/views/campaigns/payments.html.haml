@@ -7,4 +7,17 @@
   =link_to 'назад', @campaign
   )
 
-= render partial: 'payments', locals: {payments: @payments}
+.row
+  %ul.nav.nav-tabs{role: 'tablist'}
+    %li.nav-item
+      %a.nav-link.active{href: '#earnings', 'data-toggle': 'tab', role: 'tab'} Поступления
+    %li.nav-item
+      %a.nav-link{href: '#expenses', 'data-toggle': 'tab', role: 'tab'} Расходы
+
+.row
+  .tab-content
+    .tab-pane.active#earnings{role: 'tabpanel'}
+      = render partial: 'payments', locals: {payments: @payments, show_expenses: false}
+
+    .tab-pane#expenses{role: 'tabpanel'}
+      = render partial: 'payments', locals: {payments: @payments, show_expenses: true}
