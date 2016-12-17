@@ -80,6 +80,7 @@ class PaymentsController < ApplicationController
 
   def hg_notify
     payment = nil
+    foreign_payment = false
     bill_id = params.permit(:purchaseid)[:purchaseid]
     c = Rails.configuration.hutkigrosh
     hg = HutkiGrosh::HutkiGrosh.new(c.base_url, c.user, c.password)
@@ -105,6 +106,9 @@ class PaymentsController < ApplicationController
         payment.is_expense = false
         payment.payment_number = bill_id.to_s
         payment.notes = bill.to_s
+      else
+        foreign_payment = true
+        logger.info "Payment notification with unknown ERIP ID: #{bill.to_s}"
       end
     rescue HutkiGrosh::HGError => e
       logger.info "#{e.class.to_s}: #{e.message}"
@@ -112,7 +116,7 @@ class PaymentsController < ApplicationController
       hg.logout
     end
 
-    if payment and payment.save
+    if (payment and payment.save) or foreign_payment
       head :ok
     else
       logger.info "Payment save failed: payment=#{payment.inspect}"
