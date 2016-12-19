@@ -5,7 +5,13 @@ require 'rest-client'
 require 'json'
 
 module HutkiGrosh
-  class HGError < Exception
+  class HGError < RuntimeError
+    attr_accessor :http_body
+
+    def initialize(message=nil, http_body=nil)
+      @http_body = http_body
+      super(message)
+    end
   end
 
   module HGUtils
@@ -121,35 +127,35 @@ module HutkiGrosh
     def post_bill(bill)
       r = query_api :post, '/API/v1/Invoicing/Bill', bill
       bill_status = JSON.parse r.body
-      raise HGError, ERRORS[bill_status['status']] unless bill_status['status'] == 0
+      raise HGError, ERRORS[bill_status['status']], r.body unless bill_status['status'] == 0
       bill_status['billID']
     end
 
     def get_bill(bill_id)
       r = query_api :get, "/API/v1/Invoicing/Bill(#{bill_id})"
       bill_status = JSON.parse r.body
-      raise HGError, ERRORS[bill_status['status']] unless bill_status['status'] == 0
+      raise HGError, ERRORS[bill_status['status']], r.body unless bill_status['status'] == 0
       Bill.new(bill_status['bill'])
     end
 
     def delete_bill(bill_id)
       r = query_api :delete, "/API/v1/Invoicing/Bill(#{bill_id})"
       bill_status = JSON.parse r.body
-      raise HGError, ERRORS[bill_status['status']] unless bill_status['status'] == 0
+      raise HGError, ERRORS[bill_status['status']], r.body unless bill_status['status'] == 0
       bill_status
     end
 
     def bills
       r = query_api :get, "/API/v1/Invoicing/Bills(0,1000,1)"
       res = JSON.parse r.body
-      raise HGError, ERRORS[res['status']] unless res['status'] == 0
+      raise HGError, ERRORS[res['status']], r.body unless res['status'] == 0
       res['bill']
     end
 
     def bill_status(bill_id)
       r = query_api :get, "/API/v1/Invoicing/BillStatus(#{bill_id})"
       bill_status = JSON.parse r.body
-      raise HGError, ERRORS[bill_status['status']] unless bill_status['status'] == 0
+      raise HGError, ERRORS[bill_status['status']], r.body unless bill_status['status'] == 0
       bill_status
     end
 
@@ -158,14 +164,14 @@ module HutkiGrosh
       res = JSON.parse r.body
       # Сервис возвращает ошибку, если оплаченных счетов нет
       return [] if res['status'] == 3221291523
-      raise HGError, ERRORS[res['status']] unless res['status'] == 0
+      raise HGError, ERRORS[res['status']], r.body unless res['status'] == 0
       res['bill']
     end
 
     def bgpb_pay_form(data)
       r = query_api :post, "/API/v1/Pay/BgpbPay", data
       res = JSON.parse r.body
-      raise HGError, ERRORS[res['status']] unless res['status'] == 0
+      raise HGError, ERRORS[res['status']] || "Status code is #{res['status']}", r.body unless res['status'] == 0
       res['form']
     end
 
@@ -196,66 +202,79 @@ end
 
 
 if $0 == __FILE__
-  hg = HutkiGrosh::HutkiGrosh.new 'https://trial.hgrosh.by',  'jekhor@bike.org.by', 'Og*56$#J'
-  hg.login
-
-  puts hg.get_bill(1005112370916837592).inspect
-
-  bill = {
-    eripId: 10051001,
-    invId: '16',
-    dueDt: Time.now + 86400,
-    addedDt: Time.now,
-    amt: 15000.00,
-    curr: 'BYN',
-#    fullName: '',
-#    mobilePhone: '',
-    notifyByMobilePhone: false,
-    notifyByEMail: false,
-    statusEnum: -1,
-    products: [
-      {
-      "invItemId"=>"HG",
-      "desc"=>"Оплата членских взносов",
-      "count"=>1
-    }
-    ]
-  }
-
-  b = HutkiGrosh::Bill.new(bill)
-
+#  hg = HutkiGrosh::HutkiGrosh.new 'https://trial.hgrosh.by',  'jekhor@bike.org.by', 'Og*56$#J'
+  hg = HutkiGrosh::HutkiGrosh.new 'https://hutkigrosh.by',  'info@bike.org.by', 'Mvo!2011'
+  bill_id = nil
   begin
-    puts hg.post_bill(b).inspect
-  rescue => e
-    puts e.message
-  end
+    hg.login
 
-  bills = hg.bills
-  puts bills.inspect
+    #  puts hg.get_bill(1005112370916837592).inspect
 
-  hg.delete_bill(bills.last['billID'])
-
-  bills = hg.bills
-  puts bills.inspect
-
-  puts hg.bill_status(bills.last['billID'])
-
-  puts hg.payed_bills(10051001)
-
-  puts hg.bgpb_pay_form({
-    order_data: {
+    bill = {
       eripId: 10051001,
-      spClaimId: '14',
-      amount: 15000,
-      currency: 933,
-#      clientFio: 'Пупкин Васисуалий',
-#      clientAddress: '',
-#      trxId: 123,
-    },
-    returnUrl: 'http://localhost:3000/hg-return',
-    cancelReturnUrl: 'http://localhost:3000/hg-cancel',
-    submitValue: 'Оплатить картой'
-  })
+      invId: '2',
+      dueDt: Time.now + 86400,
+      addedDt: Time.now,
+      amt: 0.5,
+      curr: 'BYN',
+      #    fullName: '',
+      #    mobilePhone: '',
+      notifyByMobilePhone: false,
+      notifyByEMail: false,
+      statusEnum: -1,
+      products: [
+        {
+          "invItemId"=>"HG",
+          "desc"=>"Пожертвование",
+          "count"=>1
+        }
+      ]
+    }
 
-  hg.logout
+    b = HutkiGrosh::Bill.new(bill)
+
+    bill_id = hg.post_bill(b)
+    puts "Создан счёт №#{bill_id}"
+
+    b = hg.get_bill(bill_id)
+    puts "Информация о счёте: #{b.to_s}"
+
+#    bills = hg.bills
+#    puts bills.inspect
+
+#    hg.delete_bill(bills.last['billID'])
+
+#    bills = hg.bills
+#    puts "Список счетов:"
+#    puts bills.inspect
+
+#    puts hg.bill_status(bills.last['billID'])
+
+#    puts hg.payed_bills(10051001)
+
+    puts hg.bgpb_pay_form({
+      billId: nil,
+      orderData: {
+        eripId: 10051001,
+        spClaimId: '14',
+#        amount: 0.1,
+        currency: 933,
+        #      clientFio: 'Пупкин Васисуалий',
+        #      clientAddress: '',
+        #      trxId: 123,
+      },
+      returnUrl: 'http://localhost:3000/hg-return',
+      cancelReturnUrl: 'http://localhost:3000/hg-cancel',
+      submitValue: 'Оплатить картой'
+    })
+
+
+  rescue  => e
+    puts "ERROR: #{e.message}"
+    puts e.http_body if e.kind_of? RestClient::Exception or e.kind_of? HutkiGrosh::HGError
+    raise e
+  ensure
+    hg.delete_bill(bill_id) if bill_id
+    hg.logout
+  end
 end
