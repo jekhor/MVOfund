@@ -172,7 +172,7 @@ module HutkiGrosh
       r = query_api :post, "/API/v1/Pay/BgpbPay", data
       res = JSON.parse r.body
       raise HGError, ERRORS[res['status']] || "Status code is #{res['status']}", r.body unless res['status'] == 0
-      res['form']
+      res['form'].gsub('<string><![CDATA[', '').gsub(']]></string>', '')
     end
 
     private
