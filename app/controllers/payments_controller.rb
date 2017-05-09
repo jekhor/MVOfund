@@ -88,8 +88,6 @@ class PaymentsController < ApplicationController
       hg.login
       bill = hg.get_bill(bill_id)
 
-      puts bill.inspect
-
       case bill[:eripId]
       when c.erip_donation_id
         payment = Payment.new
