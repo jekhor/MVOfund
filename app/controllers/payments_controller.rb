@@ -119,7 +119,11 @@ class PaymentsController < ApplicationController
     else
       logger.info "Payment save failed: payment=#{payment.inspect}"
       logger.info payment.errors.messages.inspect if payment
-      head :unprocessable_entity
+      if payment.errors.empty?
+        head :unprocessable_entity
+      else
+        head :ok
+      end
     end
   end
 
