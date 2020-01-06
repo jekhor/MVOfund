@@ -71,4 +71,7 @@ gem 'mini_portile2'
 gem 'meta-tags'
 gem 'rest-client'
 gem 'bootsnap'
+gem 'mina'
+gem 'mina-puma'
+gem 'puma'
 
