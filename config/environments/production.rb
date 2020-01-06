@@ -93,8 +93,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hutkigrosh = ActiveSupport::OrderedOptions.new
-  config.hutkigrosh.base_url = 'https://trial.hgrosh.by'
-  config.hutkigrosh.user = 'jekhor@bike.org.by'
-  config.hutkigrosh.password = 'Og*56$#J'
-  config.hutkigrosh.erip_donation_id = 10051001
+  config.hutkigrosh.base_url = Rails.application.secrets.hg_base_url
+  config.hutkigrosh.user = Rails.application.secrets.hg_user
+  config.hutkigrosh.password = Rails.application.secrets.hg_password
+  config.hutkigrosh.erip_donation_id = Rails.application.secrets.hg_erip_id
 end
