@@ -18,11 +18,13 @@ environment rails_env
 
 app_dir = File.expand_path("../..", __FILE__)
 
-bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-stdout_redirect "#{app_dir}/log/puma.log", "#{app_dir}/log/puma.log", true
-pidfile "#{app_dir}/tmp/pids/puma.pid"
-state_path "#{app_dir}/tmp/sockets/puma.state"
-activate_control_app "unix://#{app_dir}/tmp/sockets/pumactl.sock"
+if rails_env == "production"
+  bind "unix://#{app_dir}/tmp/sockets/puma.sock"
+  stdout_redirect "#{app_dir}/log/puma.log", "#{app_dir}/log/puma.log", true
+  pidfile "#{app_dir}/tmp/pids/puma.pid"
+  state_path "#{app_dir}/tmp/sockets/puma.state"
+  activate_control_app "unix://#{app_dir}/tmp/sockets/pumactl.sock"
+end
 
 prune_bundler
 
