@@ -5,6 +5,8 @@ class Campaign < ActiveRecord::Base
 
   validates :title, presence: true
   validates :description, presence: true
+  validates :campaign_number, presence: true
+  validates :campaign_number, uniqueness: true
 
   def expenses_amount
     Payment.expenses_amount(self)

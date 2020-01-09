@@ -4,7 +4,8 @@
 - set_meta_tags og: {url: self.request.original_url}
 .row
   .col-md-8
-    %h1= @campaign.title
+    %h1= @campaign.campaign_number.to_s + ". " + @campaign.title
+    = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
 
 .row
   .col-md-8

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2016_12_15_235726) do
+ActiveRecord::Schema.define(version: 2020_01_09_195749) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer "campaign_id", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2016_12_15_235726) do
     t.date "end_date"
     t.text "short_description", default: "", null: false
     t.integer "title_image_id"
+    t.integer "campaign_number"
     t.index ["title_image_id"], name: "index_campaigns_on_title_image_id"
   end
 
