@@ -10,7 +10,7 @@
     = csrf_meta_tags
   %body
     %nav.navbar.navbar-light.bg-faded
-      .container
+      .container-fluid
         = link_to 'MVOfund', root_path, class: 'navbar-brand'
         %ul.nav.navbar-nav
           %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}= link_to 'Проекты', campaigns_path, class: 'nav-link'
@@ -25,17 +25,17 @@
             = user_nav_link
           
     %header
-      .container
-        /%ol.breadcrumb
-        /  = render_breadcrumbs tag: :li, separator: '', tag_class: 'breadcrumb-item', builder: BreadcrumbsBootstrap4Builder
-        = render partial: 'shared/flash' unless flash.empty?
-    .container
+      /
+        .container-lg
+          = render partial: 'shared/flash' unless flash.empty?
+    .container-fluid
+      = render partial: 'shared/flash' unless flash.empty?
       %main
         = yield
 
     %footer.footer
       %nav.navbar.navbar-light.bg-faded
-        .container
+        .container-lg
           %ul.nav.navbar-nav
             %li.nav-item
               = link_to 'ОО «Минское велосипедное общество»', 'http://bike.org.by', class: 'nav-link'

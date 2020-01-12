@@ -1,5 +1,13 @@
 @import "bootstrap";
 
+.campaign-navigation {
+  font-size: 1.2rem;
+
+  a.active {
+    font-weight: bold;
+  }
+}
+
 ul.funding-stats {
   list-style-type: none;
   padding: 0;
@@ -13,8 +21,44 @@ ul.funding-stats {
   width: 100%;
 }
 
+.campaign-jumbo {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 24rem;
+  padding-bottom: 0;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  h1, h2, h3 {
+    color: white;
+  }
+
+  .campaign-ruler-panel {
+    background-color: #0b91d8;
+  }
+
+  .campaign-ruler-padding {
+    background-image: url(/assets/header-panel-corner.svg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: right;
+  }
+
+  .campaign-ruler-line {
+    height: 0.25em;
+    background-color: #0b91d8;
+  }
+}
+
 .project-card {
   padding: 20px;
+}
+
+.funding-panel {
+  h2 {
+    color: #0b91d8;
+  }
 }
 
 .progressbar {

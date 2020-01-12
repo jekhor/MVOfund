@@ -2,65 +2,87 @@
 - set_meta_tags image_src: self.request.base_url + @campaign.title_image.image.url
 - set_meta_tags og: {title: @campaign.title, image: self.request.base_url + @campaign.title_image.image.campaign_title.url, description: @campaign.short_description}
 - set_meta_tags og: {url: self.request.original_url}
-.row
-  .col-md-8
-    %h1= @campaign.campaign_number.to_s + ". " + @campaign.title
-    = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
+.container-fluid
+  .campaign-jumbo{style: "background-image: url(#{@campaign.title_image.image.campaign_title.url})"}
+    /= image_tag @campaign.title_image.image.campaign_title.url, class: 'campaign-image img-fluid' unless @campaign.title_image.blank?
+    .container-lg
+      .row.mb-2
+        .col-md-8
+          %h1= @campaign.title
+      .row.campaign-ruler-line
+      .row
+        .col-md-4.pt-2
+          %h3 Помогаем делать город удобным!
+        .col-md-4.campaign-ruler-padding
+        .col-md-4.campaign-ruler-panel.pt-3
+          %h1 Поддержать
 
-.row
-  .col-md-8
-    = image_tag @campaign.title_image.image.campaign_title.url, class: 'campaign-image' unless @campaign.title_image.blank?
 
-  .col-md-4
-    .card.project-card
-      .container
-        .row
+.container-lg
+  .row.mt-5
+    .col-md-8
+      = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
+
+      .row.mb-4.campaign-navigation
+        %ul.nav{role: 'tablist'}
+          %li.nav-item
+            %a.nav-link.active#description-tab{href: '#description', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'description', 'aria-selected': true}
+              Проект
+          %li.nav-item
+            %a.nav-link#news-tab{href: '#news', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'news', 'aria-selected': false}
+              Новости
+          %li.nav-item
+            %a.nav-link#budget-tab{href: '#budget', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'budget', 'aria-selected': false}
+              Бюджет
+
+      .tab-content
+        .tab-pane.fade.show.active#description{role: 'tabpanel', 'aria-labelledby': 'description-tab'}
+          .row.mb-2
+            %h5= @campaign.short_description
+
+          .row
+            .text-justify
+              = @campaign.description.html_safe
+
+        .tab-pane.fade#news{role: 'tabpanel', 'aria-labelledby': 'news-tab'}
+          %p
+            NEWS
+
+        .tab-pane.fade#budget{role: 'tabpanel', 'aria-labelledby': 'budget-tab'}
+          %p
+            BUDGET
+
+    .col-md-4.funding-panel
+      .row
+        .col-md-12
+          %h2 Собрано:
+      .row
+        .col-md-auto
           %h4
             = @campaign.funded
-            руб.
-          из
-          %strong= @campaign.target
-          руб. (
-          = number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0) unless @campaign.target.nil? or @campaign.target == 0
-          )
-          /%progress.progress.progress-success{max: (@campaign.target || 0), value: @campaign.funded}
+            BYN
+        .col-md-auto.ml-auto.pt-1
+          = "(" + number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0) + ")" unless @campaign.target.nil? or @campaign.target == 0
+      .row.mb-2
+        .col-md-12
           .progressbar
             - unless @campaign.target.nil? or @campaign.target == 0
               .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
-          Дней осталось:
-          %strong=remain_days(@campaign)
-
-        .row.mt-2
+      .row
+        .col-md-auto
+          = link_to "#{@campaign.earnings.size} платежей", campaign_payments_path(@campaign)
+        .col-md-auto.ml-auto
           %h4
-            = @campaign.spent
-            руб.
-          из
-          %strong= @campaign.budget_expenses_amount
-          руб. (
-          = number_to_percentage(100 * @campaign.spent / @campaign.budget_expenses_amount, precision: 0) unless @campaign.budget_expenses_amount == 0
-          ) потрачено
-          .progressbar
-            - unless @campaign.budget_expenses_amount == 0
-              .progressbar-spent{style: "width: #{fraction_to_percent_with_limit(@campaign.spent / @campaign.budget_expenses_amount, precision: 0) }"}
+            = @campaign.target
+            BYN
 
-        .row
-          .links
-            = link_to 'Бюджет проекта', campaign_budget_path(@campaign)
-            |
-            = link_to 'Платежи проекта', campaign_payments_path(@campaign)
-          .links
-            = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
 
+      .card.project-card
         .row.mt-2
-          = button_to 'Поддержать', campaign_support_path(@campaign), method: :get, class: 'button btn btn-success'
-      
+        .row
+          .mx-auto
+            = button_to 'Поддержать', campaign_support_path(@campaign), method: :get, class: 'button btn btn-primary'
+        
 
-.row.mt-2
-  .col-md-8
-    %p
-      %h5= @campaign.short_description
-
-    .text-justify
-      = @campaign.description.html_safe
 
 
