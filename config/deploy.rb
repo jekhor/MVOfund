@@ -68,7 +68,8 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      invoke :'puma:phased_restart'
+      command %{systemctl --user restart puma-fund.minsk.bike}
+#      invoke :'puma:phased_restart'
     end
   end
 
