@@ -32,5 +32,19 @@ ready = ->
     images_upload_credentials: true,
   })
 
+  amount_text = $('#amount_custom')[0]
+
+  $('.amount-btn').on 'click', (event)->
+      amount_text.value = ''
+
+  $('#amount_custom').on "input", (event) ->
+    amount = event.target.value
+    if amount
+      $('.donation-form .amount-btn').each (index, btn) ->
+        btn.classList.remove('active')
+
+      $('.donation-form .amount-btn > input').each (index, input) ->
+        input.checked = false
+
 $(document).ready(ready)
 $(document).on('turbolinks:load', ready)

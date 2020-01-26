@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   
+  get 'checkouts/return'
   devise_for :users
 
   get 'payments/update_budget_items' => 'payments#update_budget_items'
   get 'payments/hgnotify' => 'payments#hg_notify'
   get 'campaigns/:id/budget' => 'campaigns#budget', as: 'campaign_budget'
   get 'campaigns/:id/payments' => 'campaigns#payments', as: 'campaign_payments'
-  get 'campaigns/:id/support' => 'campaigns#support', as: 'campaign_support'
+  post 'campaigns/:id/support' => 'campaigns#support', as: 'campaign_support'
 
   resources :budget_items
   resources :payments

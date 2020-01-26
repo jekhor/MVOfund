@@ -1,3 +1,7 @@
+$theme-colors: (
+  "donation": #f8f9fa
+);
+
 @import "bootstrap";
 
 .campaign-navigation {
@@ -58,6 +62,19 @@ ul.funding-stats {
 .funding-panel {
   h2 {
     color: #0b91d8;
+  }
+}
+
+.donation-form {
+//  .form-group {
+//    width: 100%;
+//  }
+  label.amount-btn {
+//    @include button-outline-variant(#f8f9fa, #f8f9fa);
+//    min-width: 30%;
+//    border-style: solid;
+//    border-width: 1px;
+//    border-color: gray;
   }
 }
 

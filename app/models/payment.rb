@@ -1,6 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :campaign, inverse_of: :budget_items
   belongs_to :budget_item, inverse_of: :payments
+  has_one :checkout, inverse_of: :payment
 
   validates :time, presence: true
   validates :amount, presence: true

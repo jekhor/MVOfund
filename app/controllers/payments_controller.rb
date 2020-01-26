@@ -82,7 +82,7 @@ class PaymentsController < ApplicationController
     payment = nil
     foreign_payment = false
     bill_id = params.permit(:purchaseid)[:purchaseid]
-    c = Rails.configuration.hutkigrosh
+    c = Rails.configuration.x.hutkigrosh
     hg = HutkiGrosh::HutkiGrosh.new(c.base_url, c.user, c.password)
     begin
       hg.login

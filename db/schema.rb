@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_195749) do
+ActiveRecord::Schema.define(version: 2020_01_26_115959) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer "campaign_id", null: false
@@ -33,6 +33,23 @@ ActiveRecord::Schema.define(version: 2020_01_09_195749) do
     t.integer "title_image_id"
     t.integer "campaign_number"
     t.index ["title_image_id"], name: "index_campaigns_on_title_image_id"
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2, null: false
+    t.string "pay_processor", null: false
+    t.string "token"
+    t.string "redirect_url"
+    t.string "status"
+    t.string "message"
+    t.string "customer"
+    t.string "raw_status"
+    t.integer "campaign_id", null: false
+    t.integer "payment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_checkouts_on_campaign_id"
+    t.index ["payment_id"], name: "index_checkouts_on_payment_id"
   end
 
   create_table "payments", force: :cascade do |t|

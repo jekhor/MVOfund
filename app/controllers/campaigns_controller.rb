@@ -32,6 +32,27 @@ class CampaignsController < ApplicationController
   end
 
   def support
+    if params[:amount].blank?
+      sum = params[:amount_custom].to_f
+    else
+      sum = params[:amount].to_f
+    end
+
+    sum = BigDecimal.new(sum, 2)
+
+    payproc = PayProcessor.create
+    checkout = payproc.checkout(sum,
+                               campaign: @campaign,
+                               return_url: checkouts_return_url,
+                               description: "Пожертвование в пользу проекта «#{@campaign.title}»")
+
+    respond_to do |format|
+      if checkout.nil?
+        format.html { redirect_to @campaign, alert: 'Проблема платёжной системы. Попробуйте позже...'}
+      else
+        format.html { redirect_to checkout.redirect_url }
+      end
+    end
   end
 
   # GET /campaigns/new

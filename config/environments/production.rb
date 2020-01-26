@@ -92,9 +92,9 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.hutkigrosh = ActiveSupport::OrderedOptions.new
-  config.hutkigrosh.base_url = Rails.application.secrets.hg_base_url
-  config.hutkigrosh.user = Rails.application.secrets.hg_user
-  config.hutkigrosh.password = Rails.application.secrets.hg_password
-  config.hutkigrosh.erip_donation_id = Rails.application.secrets.hg_erip_id
+  config.pay_processor = 'bePaid'
+  config.x.hutkigrosh.base_url = Rails.application.secrets.hg_base_url
+  config.x.hutkigrosh.user = Rails.application.secrets.hg_user
+  config.x.hutkigrosh.password = Rails.application.secrets.hg_password
+  config.x.hutkigrosh.erip_donation_id = Rails.application.secrets.hg_erip_id
 end

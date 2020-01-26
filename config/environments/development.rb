@@ -60,4 +60,10 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.pay_processor = 'bePaid'
+  config.x.hutkigrosh.base_url = Rails.application.secrets.hg_base_url
+  config.x.hutkigrosh.user = Rails.application.secrets.hg_user
+  config.x.hutkigrosh.password = Rails.application.secrets.hg_password
+  config.x.hutkigrosh.erip_donation_id = Rails.application.secrets.hg_erip_id
 end

@@ -43,4 +43,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.pay_processor = 'bePaid'
+  config.x.hutkigrosh.base_url = Rails.application.secrets.hg_base_url
+  config.x.hutkigrosh.user = Rails.application.secrets.hg_user
+  config.x.hutkigrosh.password = Rails.application.secrets.hg_password
+  config.x.hutkigrosh.erip_donation_id = Rails.application.secrets.hg_erip_id
 end
