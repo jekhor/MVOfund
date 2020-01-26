@@ -12,7 +12,7 @@ class PayProcessorBepaid < PayProcessor
     raise 'PayProcessorBepaid requires :return_url option' if options[:return_url].blank?
     raise 'Description should not be blank' if options[:description].blank?
 
-    test_mode = Rails.env.development?
+    test_mode = true
     return_url = options[:return_url]
 
     checkout_request = {
