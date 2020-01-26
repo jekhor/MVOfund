@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_115959) do
+ActiveRecord::Schema.define(version: 2020_01_26_214013) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer "campaign_id", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_01_26_115959) do
     t.string "status"
     t.string "message"
     t.string "customer"
-    t.string "raw_status"
+    t.text "raw_status"
     t.integer "campaign_id", null: false
     t.integer "payment_id"
     t.datetime "created_at", null: false
