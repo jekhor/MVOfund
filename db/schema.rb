@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_173009) do
+ActiveRecord::Schema.define(version: 2020_01_27_185008) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer "campaign_id", null: false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_173009) do
     t.integer "campaign_number"
     t.boolean "hidden", default: false
     t.boolean "closed", default: false
+    t.boolean "endless"
     t.index ["title_image_id"], name: "index_campaigns_on_title_image_id"
   end
 

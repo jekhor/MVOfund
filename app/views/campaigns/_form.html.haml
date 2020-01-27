@@ -15,6 +15,7 @@
           = image_tag @campaign.title_image.image.thumb.url unless @campaign.title_image.nil?
    
         = f.input :target, input_html: {placeholder: "Целевая сумма в рублях"}
+        = f.input :endless
         = f.input :end_date
     .row
       .col-md-12

@@ -128,6 +128,6 @@ class CampaignsController < ApplicationController
     def campaign_params
       params[:campaign].permit(:title, :short_description, :description,
                                :target, :end_date, :title_image,
-                               :campaign_number, :hidden, :closed)
+                               :campaign_number, :hidden, :closed, :endless)
     end
 end

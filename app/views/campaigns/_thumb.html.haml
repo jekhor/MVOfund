@@ -17,10 +17,11 @@
         %span.stats-label
           = "собрано (#{number_to_percentage(100 * campaign.funded / campaign.target, precision: 0)})"
       %li
-        .stats-value
-          %strong= "#{remain_days(campaign)} дней"
-        %span.stats-label
-          = "осталось"
+        - unless campaign.endless?
+          .stats-value
+            %strong= "#{remain_days(campaign)} дней"
+          %span.stats-label
+            = "осталось"
       - if user_signed_in?
         %li
           = link_to 'Редактировать', edit_campaign_path(campaign)
