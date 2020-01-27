@@ -1,5 +1,3 @@
-%h1 Проекты
-
 .card-columns
   - @campaigns.each do |campaign|
     = render partial: 'thumb', locals: {campaign: campaign} if !campaign.hidden? or user_signed_in?

@@ -9,20 +9,27 @@
     = javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery?
     = csrf_meta_tags
   %body
-    %nav.navbar.navbar-light.bg-faded
-      .container-fluid
-        = link_to 'MVOfund', root_path, class: 'navbar-brand'
-        %ul.nav.navbar-nav
-          %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}= link_to 'Проекты', campaigns_path, class: 'nav-link'
-          %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}= link_to 'Платежи', payments_path, class: 'nav-link' if user_signed_in?
-          - if user_signed_in?
-            %li.nav-item.dropdown
-              %a.nav-link.dropdown-toggle{href: '#', id: 'navCreateDropdown', 'data-toggle': 'dropdown', 'aria-haspopup': true, 'aria-expanded': false} Создать
-              .dropdown-menu{'aria-labelledby': 'navCreateDropdown'}
-                = link_to 'Проект', new_campaign_path, class: 'dropdown-item'
-                = link_to 'Платёж', new_payment_path, class: 'dropdown-item'
-          %li.nav-item.float-xs-right
-            = user_nav_link
+    .container-fluid
+      %nav.navbar.navbar-expand-lg.navbar-light.bg-faded
+        %a.navbar-brand{href: "https://bike.org.by/"}
+          = image_tag '/logo.png', width: 205, height: 79
+        %button.navbar-toggler{type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarNav'}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarNav
+          %ul.navbar-nav
+            %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}
+              = link_to 'Проекты', campaigns_path, class: 'nav-link'
+          %ul.navbar-nav.ml-auto
+            %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}
+              = link_to 'Платежи', payments_path, class: 'nav-link' if user_signed_in?
+            - if user_signed_in?
+              %li.nav-item.dropdown
+                %a.nav-link.dropdown-toggle{href: '#', id: 'navCreateDropdown', 'data-toggle': 'dropdown', 'aria-haspopup': true, 'aria-expanded': false} Создать
+                .dropdown-menu{'aria-labelledby': 'navCreateDropdown'}
+                  = link_to 'Проект', new_campaign_path, class: 'dropdown-item'
+                  = link_to 'Платёж', new_payment_path, class: 'dropdown-item'
+            %li.nav-item.float-xs-right
+              = user_nav_link
           
     %header
     .container-fluid
