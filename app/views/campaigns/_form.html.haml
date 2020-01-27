@@ -8,6 +8,8 @@
       .col-md-4
         = f.input :title
         = f.input :campaign_number
+        = f.input :hidden
+        = f.input :closed
         = f.simple_fields_for :title_image do |image_form|
           = image_form.input :image, as: :file, input_html: {class: 'form-control'}
           = image_tag @campaign.title_image.image.thumb.url unless @campaign.title_image.nil?

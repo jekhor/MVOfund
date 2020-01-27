@@ -12,6 +12,8 @@ ru:
         end_date: 'Конечная дата сбора'
         short_description: 'Краткое описание'
         description: 'Описание'
+        hidden: 'Скрытый'
+        closed: 'Закрыт'
       budget_item:
         title: 'Название'
         amount: 'Сумма'

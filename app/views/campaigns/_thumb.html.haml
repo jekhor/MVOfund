@@ -3,6 +3,8 @@
   .card-block
     %h5.card-title.campaign-title
       = link_to campaign.title, campaign
+      - if user_signed_in?
+        %i= '(скрытый)' if campaign.hidden?
     %p.card-text
       = campaign.short_description
     - unless campaign.target.nil?
