@@ -92,7 +92,7 @@ class PaymentsController < ApplicationController
       when c.erip_donation_id
         payment = Payment.new
         begin
-          campaign = Campaign.find(bill[:invId].to_i)
+          campaign = Campaign.find_by(campaign_number: bill[:invId].to_i)
           payment.campaign = campaign
           bi = BudgetItem.where('campaign_id = ? AND title = ?', campaign.id, 'Пожертвования').first
           payment.budget_item = bi

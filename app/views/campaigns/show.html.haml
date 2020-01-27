@@ -125,5 +125,14 @@
             .row
               .col-12
                 = form.submit 'Поддержать', class: 'button btn btn-primary btn-block'
+            .row.mt-1
+              .col-12
+                .button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
+                  Поддержать через ЕРИП
 
+                .collapse.mt-1#eripDescription
+                  %small
+                    Ищите нас в EРИП: «Благотворительность, общественные объединения →
+                    Спортивные объединения → Минское велосипедное общество → Благотворительный взнос», номер проекта:
+                    %strong= @campaign.campaign_number
 
