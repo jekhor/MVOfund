@@ -14,7 +14,9 @@
         %td= bi.amount if bi.earning?
         %td= bi.amount if bi.expense?
         %td
-          %progress.progress.progress-success{value: Payment.sum_for_bi(bi), max: bi.amount}
+          .progress
+            .progress-bar{style: "width: #{number_to_percentage(Payment.sum_for_bi(bi) / bi.amount * 100, precision: 0)}"}
+              %span.label-centered= number_to_percentage(Payment.sum_for_bi(bi) / bi.amount * 100, precision: 1)
         - if user_signed_in?
           %td= link_to 'Изменить', edit_budget_item_path(bi)
     %tr

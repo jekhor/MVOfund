@@ -17,6 +17,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1.json
   def show
     add_breadcrumb @campaign.title, campaign_path(@campaign)
+    @budget = @campaign.budget_items.order(:is_expense)
   end
 
   def budget

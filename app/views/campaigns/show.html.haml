@@ -55,8 +55,7 @@
             NEWS
 
         .tab-pane.fade#budget{role: 'tabpanel', 'aria-labelledby': 'budget-tab'}
-          %p
-            BUDGET
+          = render partial: 'budget', locals: {budget: @budget}
 
     .col-md-4.funding-panel
       .row

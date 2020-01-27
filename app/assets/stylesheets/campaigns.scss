@@ -97,6 +97,11 @@ ul.funding-stats {
   }
 }
 
+.progress .progress-bar .label-centered {
+  position: absolute;
+  display: block;
+}
+
 .campaign-title a {
   color: #373a3c;
   text-decoration: none;
