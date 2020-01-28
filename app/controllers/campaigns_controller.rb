@@ -46,6 +46,7 @@ class CampaignsController < ApplicationController
     checkout = payproc.checkout(sum,
                                campaign: @campaign,
                                return_url: checkouts_return_url,
+                               notification_url: checkouts_notify_url,
                                description: "Пожертвование в пользу проекта «#{@campaign.title}»")
     rescue => e
       logger.error "Failed to checkout: " + e.message

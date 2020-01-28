@@ -30,6 +30,7 @@ class PayProcessorBepaid < PayProcessor
           decline_url: return_url,
           fail_url: return_url,
           cancel_url: return_url,
+          notification_url: options[:notification_url],
           language: 'ru',
           customer_fields: {
             visible: ['email'],

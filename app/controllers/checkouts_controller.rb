@@ -2,8 +2,34 @@ class CheckoutsController < ApplicationController
   before_action :set_checkout
 
   def return
-    @checkout.update_status!
+    process_checkout_changes
 
+    respond_to do |format|
+      if @checkout.status == 'successful'
+        format.html { redirect_to campaign_path(@checkout.campaign), flash: {success: "Платёж совершён успешно"} }
+      else
+        format.html { redirect_to campaign_path(@checkout.campaign), alert: "Платёж не удался: #{@checkout.message}" }
+      end
+    end
+  end
+
+  def notify
+    process_checkout_changes
+
+    if @checkout.status == 'successful'
+      head :ok
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  private
+
+  def process_checkout_changes
+    handle_checkout_status_change if checkout_status_changed?
+  end
+
+  def handle_checkout_status_change
     if @checkout.status == 'successful'
       unless @checkout.payment.blank?
         p = @checkout.payment
@@ -30,17 +56,15 @@ class CheckoutsController < ApplicationController
         raise "Cannot save payment"
       end
     end
-
-    respond_to do |format|
-      if @checkout.status == 'successful'
-        format.html { redirect_to campaign_path(@checkout.campaign), flash: {success: "Платёж совершён успешно"} }
-      else
-        format.html { redirect_to campaign_path(@checkout.campaign), alert: "Платёж не удался: #{@checkout.message}" }
-      end
-    end
   end
 
-  private
+  def checkout_status_changed?
+    old_status = @checkout.status
+    @checkout.update_status!
+
+    old_status != @checkout.status
+  end
+
   def set_checkout
     @checkout = Checkout.find_by(token: params[:token])
   end
