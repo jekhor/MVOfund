@@ -45,7 +45,7 @@ class CheckoutsController < ApplicationController
       p.time = Time.now
       p.campaign = @checkout.campaign
       p.contributor = @checkout.customer['email']
-      p.payment_number = "checkout_#{@checkout.id}"
+      p.payment_number = @checkout.uid || "checkout_#{@checkout.id}"
       begin
         bi = BudgetItem.where('campaign_id = ? AND title = ?', p.campaign.id, 'Пожертвования').first
         p.budget_item = bi

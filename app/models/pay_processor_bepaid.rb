@@ -63,7 +63,8 @@ class PayProcessorBepaid < PayProcessor
     checkout.status = c['status']
     checkout.message = c['message']
     checkout.customer = c['customer']
-    checkout.raw_status = c.to_s
+    checkout.uid = c['gateway_response']['payment']['uid']
+    checkout.raw_status = c.to_json
     checkout.save
   end
 end

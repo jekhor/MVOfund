@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_185008) do
+ActiveRecord::Schema.define(version: 2020_01_28_213906) do
 
   create_table "budget_items", force: :cascade do |t|
     t.integer "campaign_id", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_185008) do
     t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid"
     t.index ["campaign_id"], name: "index_checkouts_on_campaign_id"
     t.index ["payment_id"], name: "index_checkouts_on_payment_id"
   end
