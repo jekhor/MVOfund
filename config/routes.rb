@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get 'checkouts/return'
   get 'checkouts/notify'
+  post 'checkouts/notify'
   devise_for :users
 
   get 'payments/update_budget_items' => 'payments#update_budget_items'
