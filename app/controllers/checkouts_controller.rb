@@ -1,5 +1,5 @@
 class CheckoutsController < ApplicationController
-  before_action :set_checkout
+  before_action :set_checkout, only: :return
 
   def return
     process_checkout_changes
@@ -14,6 +14,8 @@ class CheckoutsController < ApplicationController
   end
 
   def notify
+    @checkout = Checkout.find_by(token: params[:transaction][:additional_data][:vendor][:token])
+
     process_checkout_changes
 
     if @checkout.status == 'successful'
