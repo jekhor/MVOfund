@@ -42,10 +42,15 @@ class CampaignsController < ApplicationController
     sum = BigDecimal.new(sum, 2)
 
     payproc = PayProcessor.create
+    begin
     checkout = payproc.checkout(sum,
                                campaign: @campaign,
                                return_url: checkouts_return_url,
                                description: "Пожертвование в пользу проекта «#{@campaign.title}»")
+    rescue => e
+      logger.error "Failed to checkout: " + e.message
+      checkout = nil
+    end
 
     respond_to do |format|
       if checkout.nil?

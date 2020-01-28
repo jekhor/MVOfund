@@ -15,6 +15,17 @@ file_picker_cb = (callback, value, meta) ->
 
     input.click()
 
+validateDonationForm = ->
+  $('.donation-form').each ->
+    buttonEnabled = false
+    $('.amount-btn', this).each ->
+      if $(this).hasClass('active')
+        buttonEnabled = true
+
+    if $('#amount_custom', this)[0].value
+      buttonEnabled = true
+
+    $('[type="submit"]', this).prop('disabled', !buttonEnabled)
 
 ready = ->
   tinymce.remove()
@@ -36,6 +47,7 @@ ready = ->
 
   $('.amount-btn').on 'click', (event)->
       amount_text.value = ''
+      validateDonationForm()
 
   $('#amount_custom').on "input", (event) ->
     amount = event.target.value
@@ -45,6 +57,11 @@ ready = ->
 
       $('.donation-form .amount-btn > input').each (index, input) ->
         input.checked = false
+
+    validateDonationForm()
+
+  $('.amount-btn').on 'change', ->
+    validateDonationForm()
 
 $(document).ready(ready)
 $(document).on('turbolinks:load', ready)

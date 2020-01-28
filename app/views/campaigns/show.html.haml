@@ -90,8 +90,8 @@
             .row
               .btn-group-vertical.btn-group-toggle.col-12{role: 'group', 'data-toggle': 'buttons'}
                 .btn-group
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_5{type: 'radio', name: 'amount', value: '5'}
+                  %label.btn.btn-outline-dark.amount-btn.active
+                    %input#amount_5{type: 'radio', name: 'amount', value: '5', selected: true}
                       5
                       %small BYN
                   %label.btn.btn-outline-dark.amount-btn
@@ -121,9 +121,10 @@
                   = form.text_field :amount_custom, class: 'form-control', placeholder: 'Другая сумма'
                   .input-group-append
                     %span.input-group-text#othersum-byn BYN
+
             .row
               .col-12
-                = form.submit 'Поддержать', class: 'button btn btn-primary btn-block'
+                = form.submit 'Поддержать', class: 'button btn btn-primary btn-block', disabled: true
             .row.mt-1
               .col-12
                 .button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
