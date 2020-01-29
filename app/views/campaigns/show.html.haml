@@ -16,7 +16,8 @@
           %h3 Помогаем делать город удобным!
         .col-md-4.campaign-ruler-padding
         .col-md-4.campaign-ruler-panel.pt-3
-          %h1 Поддержать
+          %a{href: "#donation-card"}
+            %h1 Поддержать
 
 
 .row.mt-5
@@ -85,7 +86,7 @@
 
 
     - unless @campaign.closed?
-      .card.project-card
+      .card.project-card#donation-card
         = form_with url: campaign_support_path(@campaign), class: 'donation-form' do |form|
           .row
             .btn-group-vertical.btn-group-toggle.col-12{role: 'group', 'data-toggle': 'buttons'}
