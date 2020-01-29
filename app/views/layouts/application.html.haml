@@ -30,11 +30,14 @@
                   = link_to 'Платёж', new_payment_path, class: 'dropdown-item'
             %li.nav-item.float-xs-right
               = user_nav_link
-          
+
     %header
-    .container-fluid
-      = render partial: 'shared/flash' unless flash.empty?
-      %main
+      .container-fluid
+        = yield :header
+
+    %main
+      .container-lg
+        = render partial: 'shared/flash' unless flash.empty?
         = yield
 
     %footer.footer

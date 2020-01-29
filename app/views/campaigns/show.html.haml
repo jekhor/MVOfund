@@ -2,7 +2,8 @@
 - set_meta_tags image_src: self.request.base_url + @campaign.title_image.image.url
 - set_meta_tags og: {title: @campaign.title, image: self.request.base_url + @campaign.title_image.image.campaign_title.url, description: @campaign.short_description}
 - set_meta_tags og: {url: self.request.original_url}
-.container-fluid
+
+- content_for :header do
   .campaign-jumbo{style: "background-image: url(#{@campaign.title_image.image.campaign_title.url})"}
     /= image_tag @campaign.title_image.image.campaign_title.url, class: 'campaign-image img-fluid' unless @campaign.title_image.blank?
     .container-lg
@@ -18,121 +19,120 @@
           %h1 Поддержать
 
 
-.container-lg
-  .row.mt-5
-    .col-md-8
-      - if user_signed_in?
-        .row
-          = 'Скрытый проект' if @campaign.hidden?
-          = 'Проект закрыт' if @campaign.closed?
-
+.row.mt-5
+  .col-md-8
+    - if user_signed_in?
       .row
-        = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
+        = 'Скрытый проект' if @campaign.hidden?
+        = 'Проект закрыт' if @campaign.closed?
 
-      .row.mb-4.campaign-navigation
-        %ul.nav{role: 'tablist'}
-          %li.nav-item
-            %a.nav-link.active#description-tab{href: '#description', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'description', 'aria-selected': true}
-              Проект
-          %li.nav-item
-            %a.nav-link#news-tab{href: '#news', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'news', 'aria-selected': false}
-              Новости
-          %li.nav-item
-            %a.nav-link#budget-tab{href: '#budget', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'budget', 'aria-selected': false}
-              Бюджет
+    .row
+      = link_to 'Редактировать проект', edit_campaign_path(@campaign) if user_signed_in?
 
-      .tab-content
-        .tab-pane.fade.show.active#description{role: 'tabpanel', 'aria-labelledby': 'description-tab'}
-          .row.mb-2
-            %h5= @campaign.short_description
+    .row.mb-4.campaign-navigation
+      %ul.nav{role: 'tablist'}
+        %li.nav-item
+          %a.nav-link.active#description-tab{href: '#description', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'description', 'aria-selected': true}
+            Проект
+        %li.nav-item
+          %a.nav-link#news-tab{href: '#news', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'news', 'aria-selected': false}
+            Новости
+        %li.nav-item
+          %a.nav-link#budget-tab{href: '#budget', role: 'tab', 'data-toggle': 'pill', 'aria-controls': 'budget', 'aria-selected': false}
+            Бюджет
+
+    .tab-content
+      .tab-pane.fade.show.active#description{role: 'tabpanel', 'aria-labelledby': 'description-tab'}
+        .row.mb-2
+          %h5= @campaign.short_description
+
+        .row
+          .text-justify
+            = @campaign.description.html_safe
+
+      .tab-pane.fade#news{role: 'tabpanel', 'aria-labelledby': 'news-tab'}
+        %p
+          NEWS
+
+      .tab-pane.fade#budget{role: 'tabpanel', 'aria-labelledby': 'budget-tab'}
+        = render partial: 'budget', locals: {budget: @budget}
+
+  .col-md-4.funding-panel
+    .row
+      .col-md-12
+        %h2 Собрано:
+    .row
+      .col-md-auto
+        %h4
+          = @campaign.funded
+          BYN
+      .col-md-auto.ml-auto.pt-1
+        = "(" + number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0) + ")" unless @campaign.target.nil? or @campaign.target == 0
+    .row.mb-2
+      .col-md-12
+        .progressbar
+          - unless @campaign.target.nil? or @campaign.target == 0
+            .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
+    .row
+      .col-md-auto
+        = link_to "#{@campaign.earnings.size} платежей", campaign_payments_path(@campaign)
+      .col-md-auto.ml-auto
+        %h4
+          = @campaign.target
+          BYN
+
+    .card
+
+
+    - unless @campaign.closed?
+      .card.project-card
+        = form_with url: campaign_support_path(@campaign), class: 'donation-form' do |form|
+          .row
+            .btn-group-vertical.btn-group-toggle.col-12{role: 'group', 'data-toggle': 'buttons'}
+              .btn-group
+                %label.btn.btn-outline-dark.amount-btn.active
+                  %input#amount_5{type: 'radio', name: 'amount', value: '5', selected: true}
+                    5
+                    %small BYN
+                %label.btn.btn-outline-dark.amount-btn
+                  %input#amount_10{type: 'radio', name: 'amount', value: '10'}
+                    10
+                    %small BYN
+                %label.btn.btn-outline-dark.amount-btn
+                  %input#amount_20{type: 'radio', name: 'amount', value: '20'}
+                    20
+                    %small BYN
+              .btn-group
+                %label.btn.btn-outline-dark.amount-btn
+                  %input#amount_50{type: 'radio', name: 'amount', value: '50'}
+                    50
+                    %small BYN
+                %label.btn.btn-outline-dark.amount-btn
+                  %input#amount_100{type: 'radio', name: 'amount', value: '100'}
+                    100
+                    %small BYN
+                %label.btn.btn-outline-dark.amount-btn
+                  %input#amount_500{type: 'radio', name: 'amount', value: '500'}
+                    500
+                    %small BYN
+          .row.mb-1
+            .col-12
+              .input-group.mb-3
+                = form.text_field :amount_custom, class: 'form-control', placeholder: 'Другая сумма'
+                .input-group-append
+                  %span.input-group-text#othersum-byn BYN
 
           .row
-            .text-justify
-              = @campaign.description.html_safe
+            .col-12
+              = form.submit 'Поддержать', class: 'button btn btn-primary btn-block', disabled: true
+          .row.mt-1
+            .col-12
+              .button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
+                Поддержать через ЕРИП
 
-        .tab-pane.fade#news{role: 'tabpanel', 'aria-labelledby': 'news-tab'}
-          %p
-            NEWS
-
-        .tab-pane.fade#budget{role: 'tabpanel', 'aria-labelledby': 'budget-tab'}
-          = render partial: 'budget', locals: {budget: @budget}
-
-    .col-md-4.funding-panel
-      .row
-        .col-md-12
-          %h2 Собрано:
-      .row
-        .col-md-auto
-          %h4
-            = @campaign.funded
-            BYN
-        .col-md-auto.ml-auto.pt-1
-          = "(" + number_to_percentage(100 * @campaign.funded / @campaign.target, precision: 0) + ")" unless @campaign.target.nil? or @campaign.target == 0
-      .row.mb-2
-        .col-md-12
-          .progressbar
-            - unless @campaign.target.nil? or @campaign.target == 0
-              .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
-      .row
-        .col-md-auto
-          = link_to "#{@campaign.earnings.size} платежей", campaign_payments_path(@campaign)
-        .col-md-auto.ml-auto
-          %h4
-            = @campaign.target
-            BYN
-
-      .card
-
-
-      - unless @campaign.closed?
-        .card.project-card
-          = form_with url: campaign_support_path(@campaign), class: 'donation-form' do |form|
-            .row
-              .btn-group-vertical.btn-group-toggle.col-12{role: 'group', 'data-toggle': 'buttons'}
-                .btn-group
-                  %label.btn.btn-outline-dark.amount-btn.active
-                    %input#amount_5{type: 'radio', name: 'amount', value: '5', selected: true}
-                      5
-                      %small BYN
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_10{type: 'radio', name: 'amount', value: '10'}
-                      10
-                      %small BYN
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_20{type: 'radio', name: 'amount', value: '20'}
-                      20
-                      %small BYN
-                .btn-group
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_50{type: 'radio', name: 'amount', value: '50'}
-                      50
-                      %small BYN
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_100{type: 'radio', name: 'amount', value: '100'}
-                      100
-                      %small BYN
-                  %label.btn.btn-outline-dark.amount-btn
-                    %input#amount_500{type: 'radio', name: 'amount', value: '500'}
-                      500
-                      %small BYN
-            .row.mb-1
-              .col-12
-                .input-group.mb-3
-                  = form.text_field :amount_custom, class: 'form-control', placeholder: 'Другая сумма'
-                  .input-group-append
-                    %span.input-group-text#othersum-byn BYN
-
-            .row
-              .col-12
-                = form.submit 'Поддержать', class: 'button btn btn-primary btn-block', disabled: true
-            .row.mt-1
-              .col-12
-                .button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
-                  Поддержать через ЕРИП
-
-                .collapse.mt-1#eripDescription
-                  %small
-                    Ищите нас в EРИП: «Благотворительность, общественные объединения →
-                    Спортивные объединения → Минское велосипедное общество → Благотворительный взнос», номер проекта:
-                    %strong= @campaign.campaign_number
+              .collapse.mt-1#eripDescription
+                %small
+                  Ищите нас в EРИП: «Благотворительность, общественные объединения →
+                  Спортивные объединения → Минское велосипедное общество → Благотворительный взнос», номер проекта:
+                  %strong= @campaign.campaign_number
 
