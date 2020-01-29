@@ -2,6 +2,7 @@
   = link_to image_tag(campaign.title_image.image.campaign_thumb.url, class: 'card-img-top img-fluid'), campaign unless campaign.title_image.blank?
   .card-block
     %h5.card-title.campaign-title
+      = "#{campaign.campaign_number}. " if user_signed_in?
       = link_to campaign.title, campaign
       - if user_signed_in?
         %i= '(скрытый)' if campaign.hidden?
