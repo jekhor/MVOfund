@@ -21,7 +21,7 @@
 
 
 .row.mt-5
-  .col-md-8
+  .col-md-7
     - if user_signed_in?
       .row
         = 'Скрытый проект' if @campaign.hidden?
@@ -58,7 +58,7 @@
       .tab-pane.fade#budget{role: 'tabpanel', 'aria-labelledby': 'budget-tab'}
         = render partial: 'budget', locals: {budget: @budget}
 
-  .col-md-4.funding-panel
+  .col-md-4.offset-1.funding-panel
     .row
       .col-md-12
         %h2 Собрано:
@@ -74,7 +74,7 @@
         .progressbar
           - unless @campaign.target.nil? or @campaign.target == 0
             .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(@campaign.funded / @campaign.target, precision: 0)}"}
-    .row
+    .row.mb-4
       .col-md-auto
         = link_to "#{@campaign.earnings.size} платежей", campaign_payments_path(@campaign)
       .col-md-auto.ml-auto
@@ -82,13 +82,10 @@
           = @campaign.target
           BYN
 
-    .card
-
-
     - unless @campaign.closed?
       .card.project-card#donation-card
         = form_with url: campaign_support_path(@campaign), class: 'donation-form' do |form|
-          .row
+          .row.mb-3
             .btn-group-vertical.btn-group-toggle.col-12{role: 'group', 'data-toggle': 'buttons'}
               .btn-group
                 %label.btn.btn-outline-dark.amount-btn.active
@@ -116,19 +113,19 @@
                   %input#amount_500{type: 'radio', name: 'amount', value: '500'}
                     500
                     %small BYN
-          .row.mb-1
+          .row.mb-4
             .col-12
-              .input-group.mb-3
+              .input-group
                 = form.text_field :amount_custom, class: 'form-control', placeholder: 'Другая сумма'
                 .input-group-append
                   %span.input-group-text#othersum-byn BYN
 
-          .row
+          .row.mb-3
             .col-12
               = form.submit 'Поддержать', class: 'button btn btn-primary btn-block', disabled: true
-          .row.mt-1
+          .row
             .col-12
-              .button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
+              %button.btn.btn-outline-dark.btn-block{'data-toggle': 'collapse', type: 'button', 'data-target': '#eripDescription'}
                 Поддержать через ЕРИП
 
               .collapse.mt-1#eripDescription

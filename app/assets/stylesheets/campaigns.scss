@@ -40,6 +40,9 @@ ul.funding-stats {
 
   .campaign-ruler-panel {
     background-color: #0b91d8;
+    a:hover {
+      text-decoration: none;
+    }
   }
 
   .campaign-ruler-padding {
