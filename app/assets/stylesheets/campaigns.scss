@@ -15,6 +15,7 @@ $theme-colors: (
 ul.funding-stats {
   list-style-type: none;
   padding: 0;
+  margin-bottom: 0;
   li {
     display: inline-block;
     margin-right: 15px;
@@ -105,9 +106,12 @@ ul.funding-stats {
   display: block;
 }
 
-.campaign-title a {
-  color: #373a3c;
-  text-decoration: none;
+.campaign-title {
+  min-height: 3rem;
+  a {
+    color: #373a3c;
+    text-decoration: none;
+  }
 }
 
 textarea#campaign_short_description {

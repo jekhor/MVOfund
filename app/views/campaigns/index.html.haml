@@ -1,5 +1,7 @@
-.card-columns
-  - @campaigns.each do |campaign|
-    = render partial: 'thumb', locals: {campaign: campaign} if !campaign.hidden? or user_signed_in?
+%h1 Активные кампании
+.row.mt-5
+  .card-columns
+    - @campaigns.each do |campaign|
+      = render partial: 'thumb', locals: {campaign: campaign} if !campaign.hidden? or user_signed_in?
 
 

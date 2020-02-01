@@ -1,28 +1,26 @@
 .card
   = link_to image_tag(campaign.title_image.image.campaign_thumb.url, class: 'card-img-top img-fluid'), campaign unless campaign.title_image.blank?
-  .card-block
+  .card-body
     %h5.card-title.campaign-title
       = "#{campaign.campaign_number}. " if user_signed_in?
       = link_to campaign.title, campaign
       - if user_signed_in?
         %i= '(скрытый)' if campaign.hidden?
     %p.card-text
-      = campaign.short_description
+      /= campaign.short_description
     - unless campaign.target.nil?
       .progressbar
         .progressbar-funded{style: "width: #{fraction_to_percent_with_limit(campaign.funded / campaign.target, precision: 0)}"}
     %ul.funding-stats
       %li
         .stats-value
-          %strong= "#{campaign.funded} руб."
-        %span.stats-label
-          = "собрано (#{number_to_percentage(100 * campaign.funded / campaign.target, precision: 0)})"
+          %strong= "#{campaign.funded}"
+          BYN из 
+          = "#{campaign.target} BYN"
       %li
         - unless campaign.endless?
           .stats-value
-            %strong= "#{remain_days(campaign)} дней"
-          %span.stats-label
-            = "осталось"
+            %strong= "#{remain_days(campaign)} дней осталось"
       - if user_signed_in?
         %li
           = link_to 'Редактировать', edit_campaign_path(campaign)
