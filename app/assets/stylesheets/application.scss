@@ -13,6 +13,10 @@
  *= require tether
  */
 
+$theme-colors: (
+  "primary": #0b91d8
+);
+
 @import "bootstrap";
 @import "font-awesome";
 @import "campaigns";
