@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'pages/faq'
   get 'checkouts/return'
   get 'checkouts/notify'
   post 'checkouts/notify'

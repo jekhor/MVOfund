@@ -20,6 +20,8 @@
           %ul.navbar-nav
             %li.nav-item{class: current_page?(campaigns_path) ? 'active' : nil}
               = link_to 'Проекты', campaigns_path, class: 'nav-link'
+            %li.nav-item{class: current_page?(pages_faq_path) ? 'active' : nil}
+              = link_to 'Вопросы и ответы', pages_faq_path, class: 'nav-link'
             %li.nav-item
               = link_to 'Что ещё делает МВО?', 'https://bike.org.by/news/', class: 'nav-link'
           %ul.navbar-nav.ml-auto

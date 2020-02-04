@@ -1,0 +1,9 @@
+.card
+  .card-header{id: "faq-item-#{id}-header"}
+    %h6.mb-0
+      %a{type: 'button', 'data-toggle': 'collapse', 'data-target': "#faq-item-#{id}-body" }
+        = question
+
+  .collapse{id: "faq-item-#{id}-body", 'data-parent': '#faq-accordion'}
+    .card-body
+      = yield
