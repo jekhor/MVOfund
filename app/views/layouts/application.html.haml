@@ -48,10 +48,15 @@
         = yield
 
     %footer.footer
-      %nav.navbar.navbar-light.bg-faded
-        .container-lg
+      .container-lg.px-0
+        %nav.navbar.navbar-expand-lg.navbar-light.bg-faded.px-0.pb-0
           %ul.nav.navbar-nav
             %li.nav-item
               = link_to 'ОО «Минское велосипедное общество»', 'http://bike.org.by', class: 'nav-link'
-            %li.nav-item.float-xs-right
-              = link_to 'Github', 'https://github.com/jekhor/MVOfund.git'
+            %li.nav-item
+              = link_to icon('fab', 'github'), 'https://github.com/jekhor/MVOfund.git', class: 'nav-link'
+          %ul.nav.navbar-nav.ml-auto
+            %li.nav-item
+              = image_tag '/bepaid.png', height: 32
+            %li.nav-item
+              = image_tag '/mtbank.png', height: 32
