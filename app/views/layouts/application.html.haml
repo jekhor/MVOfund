@@ -25,6 +25,8 @@
             %li.nav-item
               = link_to 'Что ещё делает МВО?', 'https://bike.org.by/news/', class: 'nav-link'
           %ul.navbar-nav.ml-auto
+            %li.nav-item
+              = link_to 'Контакты', 'https://bike.org.by/kontakty/', class: 'nav-link'
             %li.nav-item{class: current_page?(payments_path) ? 'active' : nil}
               = link_to 'Платежи', payments_path, class: 'nav-link' if user_signed_in?
             - if user_signed_in?
