@@ -17,8 +17,8 @@
           %strong= "#{campaign.funded}"
           BYN из 
           = "#{campaign.target} BYN"
-      %li
-        - unless campaign.endless?
+      - unless campaign.endless?
+        %li
           .stats-value
             %strong= "#{remain_days(campaign)} дней осталось"
       - if user_signed_in?
