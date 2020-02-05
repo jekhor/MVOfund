@@ -31,6 +31,7 @@ class PayProcessorBepaid < PayProcessor
           fail_url: return_url,
           cancel_url: return_url,
           notification_url: options[:notification_url],
+          auto_return: 20,
           language: 'ru',
           customer_fields: {
             visible: ['email'],
