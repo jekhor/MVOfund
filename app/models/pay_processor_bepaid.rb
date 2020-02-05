@@ -32,6 +32,7 @@ class PayProcessorBepaid < PayProcessor
           cancel_url: return_url,
           notification_url: options[:notification_url],
           auto_return: 20,
+          button_next_text: "Вернуться к проекту",
           language: 'ru',
           customer_fields: {
             visible: ['email'],
