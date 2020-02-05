@@ -1,5 +1,8 @@
 class CheckoutsController < ApplicationController
   before_action :set_checkout, only: :return
+  http_basic_authenticate_with name: Rails.application.secrets.bepaid[:id].to_s,
+                               password: Rails.application.secrets.bepaid[:secret],
+                               only: :notify
 
   def return
     process_checkout_changes
