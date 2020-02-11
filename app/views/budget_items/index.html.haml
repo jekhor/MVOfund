@@ -23,5 +23,4 @@
         %td= link_to 'Destroy', budget_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-
-= link_to 'New Budget item', new_budget_item_path
+= link_to 'Добавить статью бюджета', new_budget_item_path(campaign_id: @campaign_id)

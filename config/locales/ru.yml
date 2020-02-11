@@ -19,6 +19,7 @@ ru:
         title: 'Название'
         amount: 'Сумма'
         campaign: 'Проект'
+        is_expense: 'Расходы или доходы?'
       payment:
         time: 'Дата и время'
         contributor: 'Плательщик/Получатель'

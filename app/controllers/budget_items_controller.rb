@@ -5,7 +5,12 @@ class BudgetItemsController < ApplicationController
   # GET /budget_items
   # GET /budget_items.json
   def index
-    @budget_items = BudgetItem.all
+    if params[:campaign_id]
+      @budget_items = BudgetItem.where(campaign_id: params[:campaign_id])
+      @campaign_id = params[:campaign_id]
+    else
+      @budget_items = BudgetItem.all
+    end
   end
 
   # GET /budget_items/1
@@ -16,6 +21,8 @@ class BudgetItemsController < ApplicationController
   # GET /budget_items/new
   def new
     @budget_item = BudgetItem.new
+    c = Campaign.find_by(id: params[:campaign_id])
+    @budget_item.campaign = c
   end
 
   # GET /budget_items/1/edit
@@ -29,7 +36,8 @@ class BudgetItemsController < ApplicationController
 
     respond_to do |format|
       if @budget_item.save
-        format.html { redirect_to @budget_item, notice: 'Budget item was successfully created.' }
+        format.html { redirect_to budget_items_path(campaign_id: @budget_item.campaign_id),
+                                  notice: 'Budget item was successfully created.' }
         format.json { render :show, status: :created, location: @budget_item }
       else
         format.html { render :new }

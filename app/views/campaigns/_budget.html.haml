@@ -24,3 +24,6 @@
       %td= budget.map {|i| i.earning? ? i.amount : 0}.inject(0, :+)
       %td= budget.map {|i| i.expense? ? i.amount : 0}.inject(0, :+)
 
+%p
+  = link_to_if user_signed_in?, 'Добавить статью бюджета', new_budget_item_path(campaign_id: @campaign.id)
+

@@ -6,7 +6,7 @@
       .form-inputs
         = f.association :campaign
         = f.input :title
-        = f.input :is_expense, as: :radio_buttons, collection: {' Приход': false, ' Расход': true}, label: false
+        = f.input :is_expense, as: :radio_buttons, collection: {' Поступления': false, ' Траты': true}, label: false
         = f.input :amount
 
         .row
