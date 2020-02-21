@@ -31,8 +31,8 @@ ready = ->
   tinymce.remove()
   tinymce.init({
     selector: "textarea.tinymce",
-    plugins: "image link imagetools media table code",
-    toolbar: "undo redo code | styleselect | bold italic | alignleft aligncenter alignright alignjustify alignnone | table | link image media",
+    plugins: "image link imagetools media table code lists",
+    toolbar: "undo redo code | styleselect | bold italic | alignleft aligncenter alignright alignjustify alignnone | bullist numlist | table | link image media",
     link_context_toolbar: true,
     menubar: false,
     file_picker_callback: file_picker_cb,
