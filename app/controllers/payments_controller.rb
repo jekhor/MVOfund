@@ -128,7 +128,7 @@ class PaymentsController < ApplicationController
 
     begin
       logger.info "Notifying MVO CRM about ERIP payment..."
-      r = RestClient.get "https://crm.bike.org.by/payments/hg_notify", {params: params}
+      r = RestClient.get "https://crm.bike.org.by/payments/hg_notify?purchaseid=#{params[:purchaseid]}"
       logger.info "Response code: #{r.code}"
     rescue => e
       logger.error "#{e.class.to_s}: #{e.message}"
