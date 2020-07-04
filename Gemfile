@@ -74,4 +74,7 @@ gem 'bootsnap'
 gem 'mina'
 gem 'mina-puma'
 gem 'puma'
+gem "nokogiri", ">= 1.10.8"
+
+
 
