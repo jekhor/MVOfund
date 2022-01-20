@@ -12,7 +12,7 @@
     - payments.each do |payment|
       - next if payment.is_expense? != show_expenses
       %tr{class: payment.expense? ? 'expense' : 'earning'}
-        %td= payment.time.to_date
+        %td= payment.time.getlocal.to_date
         %td= payment.budget_item.title unless payment.budget_item.nil?
         - if user_signed_in?
           %td= payment.contributor
